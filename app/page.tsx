@@ -46,7 +46,6 @@ export default function Home() {
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-6">
 
           <a href="/" className="flex items-center gap-3">
-
             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#0B1F3A] text-lg font-black text-[#00D4FF] shadow-lg">
               T
             </div>
@@ -60,11 +59,9 @@ export default function Home() {
                 SMART BUSINESS CARDS
               </p>
             </div>
-
           </a>
 
           <nav className="hidden items-center gap-8 text-sm font-bold md:flex">
-
             <a
               href="#products"
               className="transition hover:text-[#00A9CC]"
@@ -86,6 +83,12 @@ export default function Home() {
               Pourquoi Tavixo
             </a>
 
+            <a
+              href="#faq"
+              className="transition hover:text-[#00A9CC]"
+            >
+              FAQ
+            </a>
           </nav>
 
           <a
@@ -94,7 +97,6 @@ export default function Home() {
           >
             Commander
           </a>
-
         </div>
       </header>
 
@@ -146,11 +148,9 @@ export default function Home() {
             </div>
 
             <div className="mt-10 flex flex-wrap gap-6 text-sm text-white/40">
-
               <span>✓ Sans application</span>
               <span>✓ NFC instantané</span>
               <span>✓ Profil digital</span>
-
             </div>
 
           </div>
@@ -169,7 +169,6 @@ export default function Home() {
                 <div className="relative flex items-start justify-between">
 
                   <div>
-
                     <p className="text-[10px] font-bold tracking-[0.35em] text-white/30">
                       SMART BUSINESS CARD
                     </p>
@@ -177,7 +176,6 @@ export default function Home() {
                     <p className="mt-3 text-3xl font-black text-white">
                       TAVIXO
                     </p>
-
                   </div>
 
                   <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#00D4FF] font-black text-[#0B1F3A] shadow-lg">
@@ -191,13 +189,11 @@ export default function Home() {
                   <div className="flex items-end justify-between">
 
                     <div>
-
                       <p className="text-xs text-white/30">
                         TAP TO CONNECT
                       </p>
 
                       <div className="mt-2 h-1 w-20 rounded-full bg-[#00D4FF]" />
-
                     </div>
 
                     <p className="text-sm font-bold text-[#00D4FF]">
@@ -287,8 +283,8 @@ export default function Home() {
             </h2>
 
             <p className="mt-5 leading-7 text-[#151A21]/50">
-              Trois niveaux. Une même technologie. Choisissez la carte
-              qui correspond le mieux à votre image professionnelle.
+              Choisissez la carte qui correspond le mieux à votre image
+              professionnelle.
             </p>
 
           </div>
@@ -401,7 +397,6 @@ export default function Home() {
                     <div className="flex items-end justify-between gap-4">
 
                       <div>
-
                         <p className="text-[10px] font-black tracking-wider text-[#151A21]/30">
                           À PARTIR DE
                         </p>
@@ -409,7 +404,6 @@ export default function Home() {
                         <p className="mt-1 text-2xl font-black text-[#0B1F3A]">
                           {product.price} DH
                         </p>
-
                       </div>
 
                       <a
@@ -524,6 +518,116 @@ export default function Home() {
 
       </section>
 
+      {/* DIGITAL PROFILE */}
+      <section className="bg-[#0B1F3A] px-5 py-24 text-white md:px-6">
+
+        <div className="mx-auto grid max-w-7xl items-center gap-14 md:grid-cols-2">
+
+          <div>
+
+            <p className="text-xs font-black tracking-[0.3em] text-[#00D4FF]">
+              VOTRE PROFIL DIGITAL
+            </p>
+
+            <h2 className="mt-5 text-4xl font-black md:text-5xl">
+              Une seule carte.
+              <br />
+              <span className="text-[#00D4FF]">
+                Toutes vos connexions.
+              </span>
+            </h2>
+
+            <p className="mt-6 max-w-xl text-lg leading-8 text-white/55">
+              Votre carte Tavixo redirige vers un profil professionnel
+              accessible depuis le navigateur. Vos informations restent
+              réunies au même endroit.
+            </p>
+
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+
+              {[
+                "Téléphone",
+                "WhatsApp",
+                "Instagram",
+                "LinkedIn",
+                "Email",
+                "Site web",
+              ].map((item) => (
+
+                <div
+                  key={item}
+                  className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-4"
+                >
+
+                  <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#00D4FF]/10 text-[#00D4FF]">
+                    ✓
+                  </span>
+
+                  <span className="font-bold text-white/80">
+                    {item}
+                  </span>
+
+                </div>
+
+              ))}
+
+            </div>
+
+          </div>
+
+          {/* PROFILE PREVIEW */}
+          <div className="flex justify-center">
+
+            <div className="w-full max-w-sm rounded-[35px] border border-white/10 bg-[#151A21] p-6 shadow-2xl">
+
+              <div className="rounded-[28px] bg-white p-6 text-[#0B1F3A]">
+
+                <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-[#0B1F3A] text-2xl font-black text-[#00D4FF]">
+                  T
+                </div>
+
+                <div className="mt-5 text-center">
+
+                  <p className="text-2xl font-black">
+                    Votre profil
+                  </p>
+
+                  <p className="mt-1 text-sm text-[#151A21]/40">
+                    Profil professionnel Tavixo
+                  </p>
+
+                </div>
+
+                <div className="mt-6 space-y-3">
+
+                  {[
+                    "📞 Appeler",
+                    "💬 WhatsApp",
+                    "📧 Email",
+                    "📸 Instagram",
+                  ].map((item) => (
+
+                    <div
+                      key={item}
+                      className="rounded-2xl bg-[#F7FAFC] px-4 py-3 text-sm font-bold"
+                    >
+                      {item}
+                    </div>
+
+                  ))}
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
       {/* WHY TAVIXO */}
       <section
         id="about"
@@ -598,7 +702,6 @@ export default function Home() {
 
           </div>
 
-          {/* COMPATIBILITY NOTE */}
           <div className="mt-8 rounded-[28px] border border-[#00A9CC]/15 bg-[#00D4FF]/5 p-7 text-center">
 
             <p className="text-sm font-bold text-[#0B1F3A]">
@@ -617,7 +720,93 @@ export default function Home() {
 
       </section>
 
-      {/* CTA */}
+      {/* FAQ */}
+      <section
+        id="faq"
+        className="bg-white px-5 py-24 md:px-6"
+      >
+
+        <div className="mx-auto max-w-4xl">
+
+          <div className="text-center">
+
+            <p className="text-xs font-black tracking-[0.3em] text-[#00A9CC]">
+              FAQ
+            </p>
+
+            <h2 className="mt-4 text-4xl font-black text-[#0B1F3A] md:text-5xl">
+              Les questions fréquentes
+            </h2>
+
+            <p className="mx-auto mt-5 max-w-2xl leading-7 text-[#151A21]/50">
+              Tout ce qu'il faut savoir avant de choisir votre carte Tavixo.
+            </p>
+
+          </div>
+
+          <div className="mt-12 space-y-4">
+
+            {[
+              {
+                question: "Est-ce qu'il faut installer une application ?",
+                answer:
+                  "Non. Votre profil digital s'ouvre directement dans le navigateur du téléphone.",
+              },
+              {
+                question: "Est-ce que Tavixo fonctionne avec iPhone ?",
+                answer:
+                  "Oui. Les iPhone compatibles NFC peuvent utiliser la carte Tavixo pour ouvrir votre profil digital.",
+              },
+              {
+                question: "Est-ce que Tavixo fonctionne avec Android ?",
+                answer:
+                  "Oui. Les smartphones Android équipés du NFC peuvent également utiliser la carte Tavixo.",
+              },
+              {
+                question: "Que se passe-t-il si le NFC est désactivé ?",
+                answer:
+                  "Vous pouvez toujours partager votre profil digital avec son lien. Le NFC n'est donc pas la seule manière d'accéder au profil.",
+              },
+              {
+                question: "Qu'est-ce que je peux mettre dans mon profil ?",
+                answer:
+                  "Vous pouvez présenter vos coordonnées et vos principaux liens professionnels, comme le téléphone, WhatsApp, Instagram, LinkedIn, l'email ou votre site web.",
+              },
+              {
+                question: "Comment commander une carte Tavixo ?",
+                answer:
+                  "Choisissez simplement votre carte dans la section Produits, cliquez sur Commander et remplissez vos informations.",
+              },
+            ].map((item) => (
+
+              <details
+                key={item.question}
+                className="group rounded-[24px] border border-[#0B1F3A]/10 bg-[#F7FAFC] p-6 transition hover:border-[#00A9CC]/30"
+              >
+
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-5 font-black text-[#0B1F3A]">
+                  <span>{item.question}</span>
+
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#0B1F3A] text-[#00D4FF] transition group-open:rotate-45">
+                    +
+                  </span>
+                </summary>
+
+                <p className="mt-4 max-w-3xl leading-7 text-[#151A21]/50">
+                  {item.answer}
+                </p>
+
+              </details>
+
+            ))}
+
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* FINAL CTA */}
       <section className="bg-[#151A21] px-5 py-20 md:px-6">
 
         <div className="mx-auto max-w-5xl overflow-hidden rounded-[35px] bg-[#0B1F3A] p-10 text-center shadow-2xl md:p-16">
@@ -639,7 +828,7 @@ export default function Home() {
             href="#products"
             className="mt-8 inline-block rounded-full bg-[#00D4FF] px-8 py-4 font-black text-[#0B1F3A] shadow-xl transition hover:-translate-y-1 hover:bg-[#45DEFF]"
           >
-            Choisir ma carte
+            Choisir ma carte →
           </a>
 
         </div>

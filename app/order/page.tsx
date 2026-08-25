@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { supabase } from "../supabase";
 
@@ -13,7 +13,7 @@ type Product = {
   created_at: string;
 };
 
-export default function OrderPage() {
+function OrderContent() {
   const searchParams = useSearchParams();
 
   const productFromUrl = searchParams.get("product");
@@ -100,7 +100,6 @@ export default function OrderPage() {
     setSending(true);
 
     try {
-      // تسجيل الطلب في Supabase
       const { error: orderError } = await supabase
         .from("orders")
         .insert({
@@ -127,7 +126,6 @@ export default function OrderPage() {
         return;
       }
 
-      // رسالة واتساب
       const message = `
 NOUVELLE COMMANDE TAVIXO
 
@@ -153,7 +151,9 @@ Merci de confirmer cette commande avec le client.
           message
         )}`;
 
-      setSuccess("تم تسجيل الطلب، غادي نوجهوك دابا لواتساب.");
+      setSuccess(
+        "تم تسجيل الطلب، غادي نوجهوك دابا لواتساب."
+      );
 
       window.location.href = whatsappUrl;
     } catch (err) {
@@ -166,7 +166,6 @@ Merci de confirmer cette commande avec le client.
 
   return (
     <main className="min-h-screen bg-[#07111F] px-5 py-10 text-white">
-
       <div className="mx-auto max-w-6xl">
 
         {/* HEADER */}
@@ -269,8 +268,6 @@ Merci de confirmer cette commande avec le client.
                   }`}
                 >
 
-                  {/* IMAGE */}
-
                   {product.image ? (
 
                     <img
@@ -286,8 +283,6 @@ Merci de confirmer cette commande avec le client.
                     </div>
 
                   )}
-
-                  {/* STATUS */}
 
                   {selected ? (
 
@@ -318,9 +313,7 @@ Merci de confirmer cette commande avec le client.
 
                 </button>
               );
-
             })
-
           )}
 
         </div>
@@ -537,7 +530,24 @@ Merci de confirmer cette commande avec le client.
         )}
 
       </div>
-
     </main>
+  );
+}
+
+export default function OrderPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="min-h-screen bg-[#07111F] px-5 py-10 text-white">
+          <div className="mx-auto flex min-h-[60vh] max-w-6xl items-center justify-center">
+            <p className="text-white/40">
+              Chargement...
+            </p>
+          </div>
+        </main>
+      }
+    >
+      <OrderContent />
+    </Suspense>
   );
 }

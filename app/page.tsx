@@ -107,7 +107,6 @@ export default function Home() {
 
         <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-5 py-20 md:grid-cols-2 md:px-6 md:py-28">
 
-          {/* HERO TEXT */}
           <div>
 
             <div className="inline-flex rounded-full border border-[#00D4FF]/30 bg-[#00D4FF]/10 px-4 py-2 text-xs font-black tracking-[0.2em] text-[#00D4FF]">
@@ -149,9 +148,7 @@ export default function Home() {
             <div className="mt-10 flex flex-wrap gap-6 text-sm text-white/40">
 
               <span>✓ Sans application</span>
-
               <span>✓ NFC instantané</span>
-
               <span>✓ Profil digital</span>
 
             </div>
@@ -226,7 +223,6 @@ export default function Home() {
         <div className="mx-auto grid max-w-7xl gap-6 px-6 py-7 md:grid-cols-3">
 
           <div className="flex items-center justify-center gap-3 text-center">
-
             <span className="text-xl text-[#00A9CC]">✓</span>
 
             <div>
@@ -238,11 +234,9 @@ export default function Home() {
                 Un simple Tap suffit
               </p>
             </div>
-
           </div>
 
           <div className="flex items-center justify-center gap-3 text-center">
-
             <span className="text-xl text-[#00A9CC]">✓</span>
 
             <div>
@@ -254,11 +248,9 @@ export default function Home() {
                 Compatible avec votre téléphone
               </p>
             </div>
-
           </div>
 
           <div className="flex items-center justify-center gap-3 text-center">
-
             <span className="text-xl text-[#00A9CC]">✓</span>
 
             <div>
@@ -270,7 +262,6 @@ export default function Home() {
                 Toutes vos informations au même endroit
               </p>
             </div>
-
           </div>
 
         </div>
@@ -302,7 +293,6 @@ export default function Home() {
 
           </div>
 
-          {/* PRODUCTS */}
           <div className="mt-14 grid gap-7 md:grid-cols-3">
 
             {loadingProducts ? (
@@ -345,7 +335,6 @@ export default function Home() {
                   className="group overflow-hidden rounded-[30px] border border-[#0B1F3A]/10 bg-white shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-2xl"
                 >
 
-                  {/* IMAGE */}
                   <div className="relative flex h-72 items-center justify-center overflow-hidden bg-[#0B1F3A]">
 
                     <div className="absolute h-52 w-52 rounded-full bg-[#00D4FF]/20 blur-3xl" />
@@ -396,7 +385,6 @@ export default function Home() {
 
                   </div>
 
-                  {/* INFO */}
                   <div className="p-7">
 
                     <h3 className="text-2xl font-black text-[#0B1F3A]">
@@ -458,15 +446,16 @@ export default function Home() {
           <div className="mx-auto max-w-2xl text-center">
 
             <p className="text-xs font-black tracking-[0.3em] text-[#00A9CC]">
-              COMMENT ÇA MARCHE
+              COMMENT ÇA MARCHE ?
             </p>
 
             <h2 className="mt-4 text-4xl font-black text-[#0B1F3A] md:text-5xl">
-              Partagez vos informations en quelques secondes
+              Un simple Tap. Trois étapes.
             </h2>
 
             <p className="mt-5 leading-7 text-[#151A21]/50">
-              Une expérience simple pour vous et pour la personne en face.
+              Partagez votre identité professionnelle en quelques secondes,
+              sans application.
             </p>
 
           </div>
@@ -476,37 +465,54 @@ export default function Home() {
             {[
               {
                 number: "01",
+                label: "TAP",
                 title: "Approchez votre téléphone",
-                text: "Le client approche son smartphone de votre carte Tavixo.",
+                text: "Le client approche son smartphone de votre carte Tavixo pour démarrer le partage.",
               },
               {
                 number: "02",
+                label: "PROFILE",
                 title: "Votre profil s'ouvre",
-                text: "Votre profil professionnel digital apparaît instantanément.",
+                text: "Votre profil professionnel digital s'ouvre directement dans le navigateur, sans application.",
               },
               {
                 number: "03",
+                label: "CONNECT",
                 title: "Connectez-vous",
-                text: "Le client peut enregistrer vos coordonnées et accéder à vos liens.",
+                text: "Le client peut enregistrer vos coordonnées, découvrir vos réseaux et accéder à vos liens.",
               },
             ].map((step) => (
 
               <div
                 key={step.number}
-                className="relative rounded-[30px] border border-[#0B1F3A]/10 bg-[#F7FAFC] p-8 transition hover:-translate-y-1 hover:shadow-xl"
+                className="group relative overflow-hidden rounded-[30px] border border-[#0B1F3A]/10 bg-[#F7FAFC] p-8 transition duration-300 hover:-translate-y-2 hover:shadow-2xl"
               >
 
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0B1F3A] font-black text-[#00D4FF]">
-                  {step.number}
+                <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-[#00D4FF]/10 blur-3xl transition group-hover:bg-[#00D4FF]/20" />
+
+                <div className="relative">
+
+                  <div className="flex items-center justify-between">
+
+                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0B1F3A] font-black text-[#00D4FF] shadow-lg">
+                      {step.number}
+                    </div>
+
+                    <span className="rounded-full border border-[#00A9CC]/20 bg-[#00D4FF]/10 px-3 py-1 text-[10px] font-black tracking-[0.2em] text-[#00A9CC]">
+                      {step.label}
+                    </span>
+
+                  </div>
+
+                  <h3 className="mt-7 text-2xl font-black text-[#0B1F3A]">
+                    {step.title}
+                  </h3>
+
+                  <p className="mt-4 leading-7 text-[#151A21]/50">
+                    {step.text}
+                  </p>
+
                 </div>
-
-                <h3 className="mt-6 text-xl font-black text-[#0B1F3A]">
-                  {step.title}
-                </h3>
-
-                <p className="mt-3 leading-7 text-[#151A21]/50">
-                  {step.text}
-                </p>
 
               </div>
 
@@ -529,16 +535,16 @@ export default function Home() {
           <div className="mx-auto max-w-2xl text-center">
 
             <p className="text-xs font-black tracking-[0.3em] text-[#00A9CC]">
-              POURQUOI TAVIXO
+              POURQUOI TAVIXO ?
             </p>
 
             <h2 className="mt-4 text-4xl font-black text-[#0B1F3A] md:text-5xl">
-              Une carte pensée pour aujourd'hui
+              Fonctionne avec votre smartphone
             </h2>
 
             <p className="mt-5 leading-7 text-[#151A21]/50">
-              Une expérience simple, élégante et pensée pour les
-              professionnels modernes.
+              Tavixo est pensé pour fonctionner simplement, que votre client
+              utilise un iPhone ou un smartphone Android.
             </p>
 
           </div>
@@ -548,41 +554,62 @@ export default function Home() {
             {[
               {
                 number: "01",
-                title: "NFC instantané",
-                text: "Un simple Tap suffit pour partager votre profil digital.",
+                title: "iPhone",
+                text: "Les iPhone compatibles NFC peuvent lire la carte Tavixo et ouvrir votre profil digital directement.",
               },
               {
                 number: "02",
-                title: "Profil professionnel",
-                text: "Toutes vos informations importantes réunies au même endroit.",
+                title: "Android",
+                text: "Les smartphones Android équipés du NFC peuvent également utiliser la carte Tavixo.",
               },
               {
                 number: "03",
-                title: "Simple & moderne",
-                text: "Une expérience rapide, élégante et pensée pour le quotidien.",
+                title: "Sans application",
+                text: "Aucune application à installer. Le profil s'ouvre directement dans le navigateur du téléphone.",
               },
             ].map((feature) => (
 
               <div
                 key={feature.number}
-                className="rounded-[28px] border border-[#0B1F3A]/10 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
+                className="rounded-[28px] border border-[#0B1F3A]/10 bg-white p-8 shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-xl"
               >
 
-                <span className="text-sm font-black text-[#00A9CC]">
-                  {feature.number}
-                </span>
+                <div className="flex items-center justify-between">
 
-                <h3 className="mt-5 text-xl font-black text-[#0B1F3A]">
+                  <span className="text-sm font-black text-[#00A9CC]">
+                    {feature.number}
+                  </span>
+
+                  <div className="h-2 w-2 rounded-full bg-[#00D4FF] shadow-[0_0_12px_#00D4FF]" />
+
+                </div>
+
+                <h3 className="mt-6 text-2xl font-black text-[#0B1F3A]">
                   {feature.title}
                 </h3>
 
-                <p className="mt-3 leading-7 text-[#151A21]/50">
+                <p className="mt-4 leading-7 text-[#151A21]/50">
                   {feature.text}
                 </p>
 
               </div>
 
             ))}
+
+          </div>
+
+          {/* COMPATIBILITY NOTE */}
+          <div className="mt-8 rounded-[28px] border border-[#00A9CC]/15 bg-[#00D4FF]/5 p-7 text-center">
+
+            <p className="text-sm font-bold text-[#0B1F3A]">
+              💡 Important
+            </p>
+
+            <p className="mx-auto mt-2 max-w-3xl text-sm leading-6 text-[#151A21]/50">
+              Pour profiter du Tap NFC, le téléphone doit disposer de la
+              technologie NFC. Si le NFC n'est pas disponible ou activé,
+              votre profil peut également être partagé avec son lien digital.
+            </p>
 
           </div>
 

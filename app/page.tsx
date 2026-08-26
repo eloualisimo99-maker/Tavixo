@@ -545,102 +545,126 @@ export default function Home() {
 
 
       {/* ========================================================= */}
-      {/* HOW IT WORKS                                              */}
-      {/* ========================================================= */}
+{/* HOW IT WORKS — SIMPLE & PREMIUM                           */}
+{/* ========================================================= */}
 
-      <section
-        id="how"
-        className="bg-white px-5 py-24 md:px-6"
-      >
+<section
+  id="how"
+  className="bg-white px-5 py-24 md:px-6"
+>
+  <div className="mx-auto max-w-7xl">
 
-        <div className="mx-auto max-w-7xl">
+    {/* Intro */}
+    <div className="mx-auto max-w-3xl text-center">
 
-          <div className="mx-auto max-w-2xl text-center">
+      <p className="text-xs font-black tracking-[0.3em] text-[#00A9CC]">
+        COMMENT ÇA MARCHE ?
+      </p>
 
-            <p className="text-xs font-black tracking-[0.3em] text-[#00A9CC]">
-              COMMENT ÇA MARCHE ?
-            </p>
+      <h2 className="mt-4 text-4xl font-black tracking-tight text-[#0B1F3A] md:text-6xl">
+        Simple.
+        <br />
+        <span className="text-[#00A9CC]">
+          Rapide. Professionnel.
+        </span>
+      </h2>
 
-            <h2 className="mt-4 text-4xl font-black text-[#0B1F3A] md:text-5xl">
-              Une rencontre.
-              <br />
-              Une connexion.
-              <br />
-              <span className="text-[#00A9CC]">
-                Un simple Tap.
-              </span>
-            </h2>
+      <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-[#151A21]/50">
+        Une seule carte pour partager votre identité professionnelle
+        en quelques secondes.
+      </p>
 
-            <p className="mt-5 leading-7 text-[#151A21]/50">
-              Tavixo transforme une simple carte de visite en une expérience
-              de networking digitale.
-            </p>
+    </div>
 
-          </div>
 
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
+    {/* Steps */}
+    <div className="relative mt-16 grid gap-6 md:grid-cols-3">
 
-            {[
-              {
-                number: "01",
-                label: "TAP",
-                title: "Partagez votre identité",
-                text: "Approchez votre carte Tavixo du smartphone de votre contact pour partager votre profil.",
-              },
-              {
-                number: "02",
-                label: "PROFILE",
-                title: "Votre profil s'ouvre",
-                text: "Votre page professionnelle apparaît directement dans le navigateur, sans application.",
-              },
-              {
-                number: "03",
-                label: "CONNECT",
-                title: "Gardez le contact",
-                text: "Votre contact peut appeler, vous écrire sur WhatsApp, visiter vos réseaux ou enregistrer vos coordonnées.",
-              },
-            ].map((step) => (
+      {/* Connection line desktop */}
+      <div className="absolute left-[16%] right-[16%] top-16 hidden h-px bg-[#0B1F3A]/10 md:block" />
 
-              <div
-                key={step.number}
-                className="group relative overflow-hidden rounded-[30px] border border-[#0B1F3A]/10 bg-[#F7FAFC] p-8 transition duration-300 hover:-translate-y-2 hover:shadow-2xl"
-              >
+      {[
+        {
+          number: "01",
+          label: "TAP",
+          title: "Approchez votre smartphone.",
+          text: "Un simple Tap suffit pour commencer.",
+          icon: "⌁",
+        },
+        {
+          number: "02",
+          label: "CONNECT",
+          title: "Votre profil s'ouvre instantanément.",
+          text: "Aucune application à installer.",
+          icon: "↗",
+        },
+        {
+          number: "03",
+          label: "SHARE",
+          title: "Partagez vos coordonnées.",
+          text: "Téléphone, WhatsApp, réseaux sociaux et plus.",
+          icon: "✓",
+        },
+      ].map((step) => (
 
-                <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-[#00D4FF]/10 blur-3xl transition group-hover:bg-[#00D4FF]/20" />
+        <div
+          key={step.number}
+          className="group relative rounded-[30px] border border-[#0B1F3A]/10 bg-[#F7FAFC] p-8 text-center transition duration-300 hover:-translate-y-2 hover:border-[#00A9CC]/30 hover:bg-white hover:shadow-2xl"
+        >
 
-                <div className="relative">
+          {/* Number / icon */}
+          <div className="relative mx-auto flex h-24 w-24 items-center justify-center rounded-full border-8 border-white bg-[#0B1F3A] shadow-xl">
 
-                  <div className="flex items-center justify-between">
-
-                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0B1F3A] font-black text-[#00D4FF] shadow-lg">
-                      {step.number}
-                    </div>
-
-                    <span className="rounded-full border border-[#00A9CC]/20 bg-[#00D4FF]/10 px-3 py-1 text-[10px] font-black tracking-[0.2em] text-[#00A9CC]">
-                      {step.label}
-                    </span>
-
-                  </div>
-
-                  <h3 className="mt-7 text-2xl font-black text-[#0B1F3A]">
-                    {step.title}
-                  </h3>
-
-                  <p className="mt-4 leading-7 text-[#151A21]/50">
-                    {step.text}
-                  </p>
-
-                </div>
-
-              </div>
-
-            ))}
+            <span className="text-2xl font-black text-[#00D4FF]">
+              {step.icon}
+            </span>
 
           </div>
+
+
+          {/* Step number */}
+          <p className="mt-7 text-[10px] font-black tracking-[0.3em] text-[#00A9CC]">
+            {step.number} — {step.label}
+          </p>
+
+
+          {/* Title */}
+          <h3 className="mx-auto mt-4 max-w-xs text-2xl font-black leading-tight text-[#0B1F3A]">
+            {step.title}
+          </h3>
+
+
+          {/* Short text */}
+          <p className="mx-auto mt-4 max-w-xs text-sm leading-6 text-[#151A21]/45">
+            {step.text}
+          </p>
 
         </div>
 
-      </section>
+      ))}
+
+    </div>
+
+
+    {/* Bottom reassurance */}
+    <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+
+      <span className="rounded-full border border-[#0B1F3A]/10 bg-[#F7FAFC] px-4 py-2 text-[10px] font-black tracking-wider text-[#0B1F3A]/50">
+        NFC
+      </span>
+
+      <span className="rounded-full border border-[#0B1F3A]/10 bg-[#F7FAFC] px-4 py-2 text-[10px] font-black tracking-wider text-[#0B1F3A]/50">
+        SANS APPLICATION
+      </span>
+
+      <span className="rounded-full border border-[#0B1F3A]/10 bg-[#F7FAFC] px-4 py-2 text-[10px] font-black tracking-wider text-[#0B1F3A]/50">
+        PROFIL DIGITAL
+      </span>
+
+    </div>
+
+  </div>
+</section>
 
 
       {/* ========================================================= */}
@@ -1368,47 +1392,250 @@ export default function Home() {
 
 
       {/* ========================================================= */}
-      {/* FOOTER                                                    */}
-      {/* ========================================================= */}
+{/* FOOTER — TAVIXO BRAND INFRASTRUCTURE                     */}
+{/* ========================================================= */}
 
-      <footer
-        id="contact"
-        className="bg-[#0B1F3A] px-5 py-10 text-white md:px-6"
-      >
+<footer
+  id="contact"
+  className="border-t border-white/10 bg-[#0B1F3A] px-5 py-16 text-white md:px-6"
+>
+  <div className="mx-auto max-w-7xl">
 
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 md:flex-row">
+    {/* ===================================================== */}
+    {/* MAIN FOOTER GRID                                      */}
+    {/* ===================================================== */}
+
+    <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-5">
+
+      {/* BRAND */}
+      <div className="lg:col-span-2">
+
+        <a
+          href="/"
+          className="inline-flex items-center gap-3"
+        >
+
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#151A21] text-lg font-black text-[#00D4FF] shadow-lg">
+            T
+          </div>
 
           <div>
-
             <p className="text-xl font-black tracking-[0.2em]">
               TAVIXO
             </p>
 
-            <p className="mt-2 text-sm text-white/30">
-              Digital Professional Identity
+            <p className="mt-1 text-[9px] font-bold tracking-[0.25em] text-white/30">
+              DIGITAL PROFESSIONAL IDENTITY
             </p>
-
           </div>
 
-          <div className="text-center md:text-right">
+        </a>
 
-            <p className="text-sm text-white/40">
-              Commandes via WhatsApp
-            </p>
 
-            <p className="mt-1 text-sm font-bold text-[#00D4FF]">
-              +212 708 149 111
-            </p>
+        <p className="mt-6 max-w-sm text-sm leading-7 text-white/40">
+          Une nouvelle façon de partager votre identité professionnelle,
+          développer votre réseau et rester connecté en un simple Tap.
+        </p>
 
-          </div>
 
-          <p className="text-xs text-white/25">
-            © 2026 Tavixo. Tous droits réservés.
+        {/* WHATSAPP */}
+        <div className="mt-7">
+
+          <p className="text-[10px] font-black tracking-[0.2em] text-white/30">
+            COMMANDES & CONTACT
           </p>
+
+          <a
+            href="https://wa.me/212708149111"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 inline-flex items-center gap-2 text-sm font-bold text-[#00D4FF] transition hover:text-[#45DEFF]"
+          >
+            <span>WhatsApp</span>
+            <span className="text-white/30">·</span>
+            <span>+212 708 149 111</span>
+          </a>
 
         </div>
 
-      </footer>
+      </div>
+
+
+      {/* ===================================================== */}
+      {/* PRODUIT                                               */}
+      {/* ===================================================== */}
+
+      <div>
+
+        <p className="text-xs font-black tracking-[0.2em] text-white/30">
+          PRODUIT
+        </p>
+
+        <div className="mt-5 space-y-3">
+
+          <a
+            href="#products"
+            className="block text-sm text-white/55 transition hover:text-[#00D4FF]"
+          >
+            Cartes NFC
+          </a>
+
+          <a
+            href="#profile"
+            className="block text-sm text-white/55 transition hover:text-[#00D4FF]"
+          >
+            Profil digital
+          </a>
+
+          <a
+            href="#pour-qui"
+            className="block text-sm text-white/55 transition hover:text-[#00D4FF]"
+          >
+            Tavixo for Teams
+          </a>
+
+        </div>
+
+      </div>
+
+
+      {/* ===================================================== */}
+      {/* ENTREPRISE                                            */}
+      {/* ===================================================== */}
+
+      <div>
+
+        <p className="text-xs font-black tracking-[0.2em] text-white/30">
+          ENTREPRISE
+        </p>
+
+        <div className="mt-5 space-y-3">
+
+          <a
+            href="#about"
+            className="block text-sm text-white/55 transition hover:text-[#00D4FF]"
+          >
+            À propos
+          </a>
+
+          <a
+            href="#contact"
+            className="block text-sm text-white/55 transition hover:text-[#00D4FF]"
+          >
+            Contact
+          </a>
+
+          <a
+            href="#faq"
+            className="block text-sm text-white/55 transition hover:text-[#00D4FF]"
+          >
+            FAQ
+          </a>
+
+        </div>
+
+      </div>
+
+
+      {/* ===================================================== */}
+      {/* SUPPORT                                               */}
+      {/* ===================================================== */}
+
+      <div>
+
+        <p className="text-xs font-black tracking-[0.2em] text-white/30">
+          SUPPORT
+        </p>
+
+        <div className="mt-5 space-y-3">
+
+          <a
+            href="#shipping"
+            className="block text-sm text-white/55 transition hover:text-[#00D4FF]"
+          >
+            Livraison
+          </a>
+
+          <a
+            href="#returns"
+            className="block text-sm text-white/55 transition hover:text-[#00D4FF]"
+          >
+            Retours
+          </a>
+
+          <a
+            href="#terms"
+            className="block text-sm text-white/55 transition hover:text-[#00D4FF]"
+          >
+            Conditions
+          </a>
+
+          <a
+            href="#privacy"
+            className="block text-sm text-white/55 transition hover:text-[#00D4FF]"
+          >
+            Confidentialité
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    {/* ===================================================== */}
+    {/* DIVIDER                                               */}
+    {/* ===================================================== */}
+
+    <div className="my-12 h-px bg-white/10" />
+
+
+    {/* ===================================================== */}
+    {/* BOTTOM                                                */}
+    {/* ===================================================== */}
+
+    <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+
+      {/* COPYRIGHT */}
+      <p className="text-xs text-white/25">
+        © 2026 Tavixo. Tous droits réservés.
+      </p>
+
+
+      {/* SOCIAL */}
+      <div className="flex items-center gap-6">
+
+        <a
+          href="https://www.instagram.com/tavixo_nfc/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xs font-bold text-white/40 transition hover:text-[#00D4FF]"
+        >
+          Instagram
+        </a>
+
+        <a
+          href="https://wa.me/212708149111"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xs font-bold text-white/40 transition hover:text-[#00D4FF]"
+        >
+          WhatsApp
+        </a>
+
+      </div>
+
+
+      {/* TAGLINE */}
+      <p className="text-xs font-black tracking-[0.15em] text-white/20">
+        SMART IDENTITY. ONE TAP.
+      </p>
+
+    </div>
+
+  </div>
+</footer>
 
     </main>
   );

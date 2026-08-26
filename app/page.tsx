@@ -41,7 +41,10 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-[#F7FAFC] text-[#151A21]">
 
-      {/* HEADER */}
+      {/* ========================================================= */}
+      {/* HEADER                                                    */}
+      {/* ========================================================= */}
+
       <header className="sticky top-0 z-50 border-b border-[#0B1F3A]/10 bg-white/95 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-6">
 
@@ -102,7 +105,7 @@ export default function Home() {
 
 
       {/* ========================================================= */}
-      {/* HERO — BRAND POSITIONING                                  */}
+      {/* HERO — PROFESSIONAL IDENTITY                              */}
       {/* ========================================================= */}
 
       <section className="relative overflow-hidden bg-[#0B1F3A]">
@@ -120,11 +123,11 @@ export default function Home() {
             {/* Badge */}
             <div className="inline-flex items-center gap-2 rounded-full border border-[#00D4FF]/25 bg-[#00D4FF]/10 px-4 py-2 text-[11px] font-black tracking-[0.18em] text-[#00D4FF]">
               <span className="h-1.5 w-1.5 rounded-full bg-[#00D4FF]" />
-              DIGITAL IDENTITY • NFC
+              DIGITAL PROFESSIONAL IDENTITY
             </div>
 
             {/* Main headline */}
-            <h1 className="mt-7 max-w-2xl text-5xl font-black leading-[0.98] tracking-[-0.03em] text-white md:text-7xl">
+            <h1 className="mt-7 max-w-2xl text-5xl font-black leading-[0.98] tracking-[-0.04em] text-white md:text-7xl">
 
               Votre identité
               <br />
@@ -136,15 +139,15 @@ export default function Home() {
               <br />
 
               <span className="text-white">
-                En un simple tap.
+                En un simple Tap.
               </span>
 
             </h1>
 
             {/* Description */}
             <p className="mt-7 max-w-xl text-lg leading-8 text-white/60 md:text-xl">
-              Partagez vos coordonnées, réseaux sociaux et informations
-              professionnelles instantanément avec une carte Tavixo.
+              Partagez votre contact, WhatsApp, Instagram, LinkedIn et plus —
+              instantanément, sans application.
             </p>
 
             {/* CTA */}
@@ -161,22 +164,22 @@ export default function Home() {
                 href="#how"
                 className="rounded-full border border-white/15 px-7 py-4 font-bold text-white transition hover:border-white/30 hover:bg-white/10"
               >
-                Comment ça marche
+                Voir comment ça marche
               </a>
 
             </div>
 
-            {/* Benefits */}
-            <div className="mt-10 flex flex-wrap gap-x-7 gap-y-3 text-sm text-white/45">
+            {/* Key benefits */}
+            <div className="mt-10 flex flex-wrap gap-x-7 gap-y-3 text-sm text-white/50">
 
               <span className="flex items-center gap-2">
                 <span className="text-[#00D4FF]">✓</span>
-                Sans application
+                NFC
               </span>
 
               <span className="flex items-center gap-2">
                 <span className="text-[#00D4FF]">✓</span>
-                Partage instantané
+                Sans application
               </span>
 
               <span className="flex items-center gap-2">
@@ -211,7 +214,7 @@ export default function Home() {
                   <div>
 
                     <p className="text-[9px] font-bold tracking-[0.35em] text-white/30">
-                      DIGITAL PROFESSIONAL IDENTITY
+                      PROFESSIONAL IDENTITY
                     </p>
 
                     <p className="mt-4 text-3xl font-black tracking-[0.08em] text-white">
@@ -221,7 +224,7 @@ export default function Home() {
                   </div>
 
                   <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#00D4FF] text-xs font-black text-[#0B1F3A] shadow-lg shadow-[#00D4FF]/20">
-                    NFC
+                    TAP
                   </div>
 
                 </div>
@@ -230,7 +233,7 @@ export default function Home() {
                 <div className="absolute left-8 top-1/2 -translate-y-1/2">
 
                   <p className="text-xs font-bold tracking-[0.25em] text-white/30">
-                    TAP TO CONNECT
+                    SHARE YOUR IDENTITY
                   </p>
 
                   <div className="mt-3 flex items-center gap-3">
@@ -250,7 +253,7 @@ export default function Home() {
 
                   <div>
                     <p className="text-[9px] tracking-[0.2em] text-white/25">
-                      YOUR IDENTITY
+                      YOUR NETWORK
                     </p>
 
                     <p className="mt-1 text-sm font-bold text-white/70">
@@ -272,7 +275,7 @@ export default function Home() {
                 </p>
 
                 <p className="mt-1 text-sm font-black text-white">
-                  Connect smarter.
+                  Network smarter.
                 </p>
 
               </div>
@@ -284,116 +287,117 @@ export default function Home() {
         </div>
       </section>
 
-{/* ========================================================= */}
-{/* TRUST BAR                                                 */}
-{/* ========================================================= */}
 
-<section className="border-b border-[#0B1F3A]/10 bg-white">
+      {/* ========================================================= */}
+      {/* TRUST BAR                                                 */}
+      {/* ========================================================= */}
 
-  <div className="mx-auto grid max-w-7xl gap-4 px-5 py-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+      <section className="border-b border-[#0B1F3A]/10 bg-white">
 
-    {/* Paiement */}
-    <div className="group flex items-center gap-3 rounded-2xl border border-[#0B1F3A]/5 bg-[#F7FAFC] p-4 transition hover:-translate-y-1 hover:border-[#00A9CC]/20 hover:shadow-lg">
+        <div className="mx-auto grid max-w-7xl gap-4 px-5 py-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
 
-      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0B1F3A] text-lg text-[#00D4FF]">
-        ✓
-      </div>
+          {/* Professional */}
+          <div className="group flex items-center gap-3 rounded-2xl border border-[#0B1F3A]/5 bg-[#F7FAFC] p-4 transition hover:-translate-y-1 hover:border-[#00A9CC]/20 hover:shadow-lg">
 
-      <div>
-        <p className="text-sm font-black text-[#0B1F3A]">
-          Paiement sécurisé
-        </p>
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0B1F3A] text-lg text-[#00D4FF]">
+              ✦
+            </div>
 
-        <p className="mt-0.5 text-[11px] text-[#151A21]/40">
-          Commandez en toute confiance
-        </p>
-      </div>
+            <div>
+              <p className="text-sm font-black text-[#0B1F3A]">
+                Image professionnelle
+              </p>
 
-    </div>
+              <p className="mt-0.5 text-[11px] text-[#151A21]/40">
+                Faites bonne impression
+              </p>
+            </div>
 
-
-    {/* Livraison */}
-    <div className="group flex items-center gap-3 rounded-2xl border border-[#0B1F3A]/5 bg-[#F7FAFC] p-4 transition hover:-translate-y-1 hover:border-[#00A9CC]/20 hover:shadow-lg">
-
-      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0B1F3A] text-lg text-[#00D4FF]">
-        🚚
-      </div>
-
-      <div>
-        <p className="text-sm font-black text-[#0B1F3A]">
-          Livraison au Maroc
-        </p>
-
-        <p className="mt-0.5 text-[11px] text-[#151A21]/40">
-          Partout au Maroc
-        </p>
-      </div>
-
-    </div>
+          </div>
 
 
-    {/* Personnalisation */}
-    <div className="group flex items-center gap-3 rounded-2xl border border-[#0B1F3A]/5 bg-[#F7FAFC] p-4 transition hover:-translate-y-1 hover:border-[#00A9CC]/20 hover:shadow-lg">
+          {/* Fast sharing */}
+          <div className="group flex items-center gap-3 rounded-2xl border border-[#0B1F3A]/5 bg-[#F7FAFC] p-4 transition hover:-translate-y-1 hover:border-[#00A9CC]/20 hover:shadow-lg">
 
-      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0B1F3A] text-lg text-[#00D4FF]">
-        ✦
-      </div>
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0B1F3A] text-lg text-[#00D4FF]">
+              →
+            </div>
 
-      <div>
-        <p className="text-sm font-black text-[#0B1F3A]">
-          Personnalisation incluse
-        </p>
+            <div>
+              <p className="text-sm font-black text-[#0B1F3A]">
+                Partage instantané
+              </p>
 
-        <p className="mt-0.5 text-[11px] text-[#151A21]/40">
-          Votre identité, votre profil
-        </p>
-      </div>
+              <p className="mt-0.5 text-[11px] text-[#151A21]/40">
+                Plus rapide qu'une carte classique
+              </p>
+            </div>
 
-    </div>
-
-
-    {/* Profil digital */}
-    <div className="group flex items-center gap-3 rounded-2xl border border-[#0B1F3A]/5 bg-[#F7FAFC] p-4 transition hover:-translate-y-1 hover:border-[#00A9CC]/20 hover:shadow-lg">
-
-      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0B1F3A] text-lg text-[#00D4FF]">
-        ◎
-      </div>
-
-      <div>
-        <p className="text-sm font-black text-[#0B1F3A]">
-          Profil digital inclus
-        </p>
-
-        <p className="mt-0.5 text-[11px] text-[#151A21]/40">
-          Prêt à partager
-        </p>
-      </div>
-
-    </div>
+          </div>
 
 
-    {/* Support */}
-    <div className="group flex items-center gap-3 rounded-2xl border border-[#0B1F3A]/5 bg-[#F7FAFC] p-4 transition hover:-translate-y-1 hover:border-[#00A9CC]/20 hover:shadow-lg">
+          {/* Digital profile */}
+          <div className="group flex items-center gap-3 rounded-2xl border border-[#0B1F3A]/5 bg-[#F7FAFC] p-4 transition hover:-translate-y-1 hover:border-[#00A9CC]/20 hover:shadow-lg">
 
-      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0B1F3A] text-lg text-[#00D4FF]">
-        ?
-      </div>
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0B1F3A] text-lg text-[#00D4FF]">
+              ◎
+            </div>
 
-      <div>
-        <p className="text-sm font-black text-[#0B1F3A]">
-          Support client
-        </p>
+            <div>
+              <p className="text-sm font-black text-[#0B1F3A]">
+                Profil digital
+              </p>
 
-        <p className="mt-0.5 text-[11px] text-[#151A21]/40">
-          Nous sommes à votre écoute
-        </p>
-      </div>
+              <p className="mt-0.5 text-[11px] text-[#151A21]/40">
+                Tous vos liens au même endroit
+              </p>
+            </div>
 
-    </div>
+          </div>
 
-  </div>
 
-</section>
+          {/* No app */}
+          <div className="group flex items-center gap-3 rounded-2xl border border-[#0B1F3A]/5 bg-[#F7FAFC] p-4 transition hover:-translate-y-1 hover:border-[#00A9CC]/20 hover:shadow-lg">
+
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0B1F3A] text-lg text-[#00D4FF]">
+              ✓
+            </div>
+
+            <div>
+              <p className="text-sm font-black text-[#0B1F3A]">
+                Sans application
+              </p>
+
+              <p className="mt-0.5 text-[11px] text-[#151A21]/40">
+                Simple pour vous et vos contacts
+              </p>
+            </div>
+
+          </div>
+
+
+          {/* Support */}
+          <div className="group flex items-center gap-3 rounded-2xl border border-[#0B1F3A]/5 bg-[#F7FAFC] p-4 transition hover:-translate-y-1 hover:border-[#00A9CC]/20 hover:shadow-lg">
+
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0B1F3A] text-lg text-[#00D4FF]">
+              ?
+            </div>
+
+            <div>
+              <p className="text-sm font-black text-[#0B1F3A]">
+                Support client
+              </p>
+
+              <p className="mt-0.5 text-[11px] text-[#151A21]/40">
+                Nous sommes à votre écoute
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
 
 
       {/* ========================================================= */}
@@ -407,23 +411,90 @@ export default function Home() {
 
         <div className="mx-auto max-w-7xl">
 
-          <div className="max-w-2xl">
+          {/* Product positioning */}
+          <div className="max-w-3xl">
 
             <p className="text-xs font-black tracking-[0.3em] text-[#00A9CC]">
               TAVIXO CARDS
             </p>
 
-            <h2 className="mt-4 text-4xl font-black text-[#0B1F3A] md:text-5xl">
-              Choisissez votre identité
+            <h2 className="mt-4 text-4xl font-black leading-tight text-[#0B1F3A] md:text-5xl">
+              Votre carte.
+              <br />
+              <span className="text-[#00A9CC]">
+                Votre réseau.
+              </span>
             </h2>
 
-            <p className="mt-5 leading-7 text-[#151A21]/50">
-              Une carte pensée pour représenter votre identité professionnelle
-              et partager votre profil digital en un instant.
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-[#151A21]/50">
+              Une carte professionnelle conçue pour vous aider à partager
+              votre identité, créer des connexions plus rapidement et ne
+              jamais perdre un contact important.
             </p>
 
           </div>
 
+
+          {/* Benefits */}
+          <div className="mt-10 grid gap-4 md:grid-cols-3">
+
+            <div className="rounded-2xl border border-[#0B1F3A]/10 bg-white p-5 shadow-sm">
+
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0B1F3A] font-black text-[#00D4FF]">
+                01
+              </div>
+
+              <h3 className="mt-4 text-lg font-black text-[#0B1F3A]">
+                Network faster
+              </h3>
+
+              <p className="mt-2 text-sm leading-6 text-[#151A21]/45">
+                Partagez vos coordonnées en quelques secondes au lieu de
+                chercher vos informations une par une.
+              </p>
+
+            </div>
+
+
+            <div className="rounded-2xl border border-[#0B1F3A]/10 bg-white p-5 shadow-sm">
+
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0B1F3A] font-black text-[#00D4FF]">
+                02
+              </div>
+
+              <h3 className="mt-4 text-lg font-black text-[#0B1F3A]">
+                Look professional
+              </h3>
+
+              <p className="mt-2 text-sm leading-6 text-[#151A21]/45">
+                Présentez une identité moderne et professionnelle dès votre
+                première rencontre.
+              </p>
+
+            </div>
+
+
+            <div className="rounded-2xl border border-[#0B1F3A]/10 bg-white p-5 shadow-sm">
+
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0B1F3A] font-black text-[#00D4FF]">
+                03
+              </div>
+
+              <h3 className="mt-4 text-lg font-black text-[#0B1F3A]">
+                Stay connected
+              </h3>
+
+              <p className="mt-2 text-sm leading-6 text-[#151A21]/45">
+                Gardez votre profil et vos moyens de contact accessibles au
+                même endroit.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          {/* Products */}
           <div className="mt-14 grid gap-7 md:grid-cols-3">
 
             {loadingProducts ? (
@@ -489,7 +560,7 @@ export default function Home() {
                           </span>
 
                           <span className="rounded-full bg-[#00D4FF]/10 px-3 py-1 text-[10px] font-black text-[#00D4FF]">
-                            NFC
+                            SMART
                           </span>
 
                         </div>
@@ -497,7 +568,7 @@ export default function Home() {
                         <div className="mt-20">
 
                           <p className="text-xs text-white/30">
-                            DIGITAL IDENTITY
+                            PROFESSIONAL IDENTITY
                           </p>
 
                           <p className="mt-2 text-lg font-black text-white">
@@ -511,10 +582,11 @@ export default function Home() {
                     )}
 
                     <div className="absolute left-5 top-5 rounded-full border border-white/10 bg-black/30 px-3 py-1.5 text-[10px] font-black tracking-wider text-white backdrop-blur">
-                      NFC • SMART
+                      SMART PROFILE
                     </div>
 
                   </div>
+
 
                   <div className="p-7">
 
@@ -524,7 +596,7 @@ export default function Home() {
 
                     <p className="mt-3 min-h-[72px] text-sm leading-6 text-[#151A21]/50">
                       {product.description ||
-                        "Carte NFC professionnelle Tavixo."}
+                        "Carte professionnelle Tavixo avec profil digital pour partager facilement vos coordonnées."}
                     </p>
 
                     <div className="my-6 h-px bg-[#0B1F3A]/10" />
@@ -585,35 +657,37 @@ export default function Home() {
             </p>
 
             <h2 className="mt-4 text-4xl font-black text-[#0B1F3A] md:text-5xl">
-              Un simple Tap. Trois étapes.
+              Votre réseau commence en un Tap.
             </h2>
 
             <p className="mt-5 leading-7 text-[#151A21]/50">
-              Votre identité professionnelle accessible en quelques secondes.
+              Une expérience simple pour vous et pour chaque personne que
+              vous rencontrez.
             </p>
 
           </div>
+
 
           <div className="mt-14 grid gap-6 md:grid-cols-3">
 
             {[
               {
                 number: "01",
-                label: "TAP",
-                title: "Approchez votre téléphone",
-                text: "Le client approche son smartphone de votre carte Tavixo.",
+                label: "SHARE",
+                title: "Présentez votre identité",
+                text: "Approchez votre carte Tavixo du smartphone de votre contact.",
               },
               {
                 number: "02",
-                label: "PROFILE",
+                label: "CONNECT",
                 title: "Votre profil s'ouvre",
-                text: "Votre identité professionnelle s'ouvre directement dans le navigateur.",
+                text: "Votre identité professionnelle apparaît directement dans le navigateur.",
               },
               {
                 number: "03",
-                label: "CONNECT",
-                title: "Partagez votre identité",
-                text: "Le client peut enregistrer vos coordonnées et accéder à vos liens.",
+                label: "NETWORK",
+                title: "Restez connecté",
+                text: "Votre contact retrouve facilement votre téléphone, WhatsApp, réseaux sociaux et autres liens.",
               },
             ].map((step) => (
 
@@ -674,25 +748,26 @@ export default function Home() {
           <div>
 
             <p className="text-xs font-black tracking-[0.3em] text-[#00D4FF]">
-              DIGITAL PROFILE
+              YOUR DIGITAL IDENTITY
             </p>
 
             <h2 className="mt-5 text-4xl font-black leading-tight md:text-5xl">
 
-              Votre identité
+              Tout ce que vous êtes.
               <br />
 
               <span className="text-[#00D4FF]">
-                toujours avec vous.
+                Au même endroit.
               </span>
 
             </h2>
 
             <p className="mt-6 max-w-xl text-lg leading-8 text-white/55">
-              Centralisez vos coordonnées, réseaux sociaux et informations
-              professionnelles dans un seul profil digital accessible
-              instantanément.
+              Ne donnez plus plusieurs informations une par une. Présentez
+              votre identité professionnelle dans un profil simple, moderne
+              et accessible.
             </p>
+
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
 
@@ -782,6 +857,7 @@ export default function Home() {
 
                 </div>
 
+
                 <div className="p-5">
 
                   <p className="text-center text-sm leading-6 text-[#151A21]/50">
@@ -789,6 +865,7 @@ export default function Home() {
                     <br />
                     Retrouvez ici toutes mes coordonnées professionnelles.
                   </p>
+
 
                   <div className="mt-6 space-y-3">
 
@@ -813,7 +890,9 @@ export default function Home() {
 
                       </div>
 
-                      <span className="text-[#00A9CC]">→</span>
+                      <span className="text-[#00A9CC]">
+                        →
+                      </span>
 
                     </a>
 
@@ -841,7 +920,9 @@ export default function Home() {
 
                       </div>
 
-                      <span className="text-[#00A9CC]">→</span>
+                      <span className="text-[#00A9CC]">
+                        →
+                      </span>
 
                     </a>
 
@@ -867,7 +948,9 @@ export default function Home() {
 
                       </div>
 
-                      <span className="text-[#00A9CC]">→</span>
+                      <span className="text-[#00A9CC]">
+                        →
+                      </span>
 
                     </a>
 
@@ -895,11 +978,14 @@ export default function Home() {
 
                       </div>
 
-                      <span className="text-[#00A9CC]">→</span>
+                      <span className="text-[#00A9CC]">
+                        →
+                      </span>
 
                     </a>
 
                   </div>
+
 
                   <button
                     type="button"
@@ -939,33 +1025,34 @@ export default function Home() {
             </p>
 
             <h2 className="mt-4 text-4xl font-black text-[#0B1F3A] md:text-5xl">
-              Une identité pensée pour le digital
+              Plus qu'une carte de visite.
             </h2>
 
             <p className="mt-5 leading-7 text-[#151A21]/50">
-              Une expérience simple et professionnelle, compatible avec
-              les smartphones modernes.
+              Tavixo transforme votre carte de visite en une expérience
+              professionnelle pensée pour créer de meilleures connexions.
             </p>
 
           </div>
+
 
           <div className="mt-14 grid gap-6 md:grid-cols-3">
 
             {[
               {
                 number: "01",
-                title: "iPhone",
-                text: "Les iPhone compatibles NFC peuvent lire la carte Tavixo et ouvrir votre profil digital.",
+                title: "Une meilleure première impression",
+                text: "Présentez une identité moderne et professionnelle dès votre première rencontre.",
               },
               {
                 number: "02",
-                title: "Android",
-                text: "Les smartphones Android équipés du NFC peuvent également utiliser Tavixo.",
+                title: "Toutes vos infos au même endroit",
+                text: "Téléphone, WhatsApp, Instagram, LinkedIn, email et autres liens accessibles depuis un seul profil.",
               },
               {
                 number: "03",
-                title: "Sans application",
-                text: "Aucune application à installer. Votre profil s'ouvre directement dans le navigateur.",
+                title: "Une connexion plus simple",
+                text: "Votre contact n'a pas besoin d'application. Il ouvre simplement votre profil et choisit comment vous contacter.",
               },
             ].map((feature) => (
 
@@ -998,15 +1085,16 @@ export default function Home() {
 
           </div>
 
+
           <div className="mt-8 rounded-[28px] border border-[#00A9CC]/15 bg-[#00D4FF]/5 p-7 text-center">
 
             <p className="text-sm font-bold text-[#0B1F3A]">
-              💡 Toujours accessible
+              💡 Et si votre contact n'a pas de NFC ?
             </p>
 
             <p className="mx-auto mt-2 max-w-3xl text-sm leading-6 text-[#151A21]/50">
-              Même sans NFC, votre profil digital peut être partagé avec
-              son lien. Votre identité reste donc accessible.
+              Aucun problème. Votre profil digital peut également être partagé
+              avec son lien. Votre identité reste accessible.
             </p>
 
           </div>
@@ -1043,6 +1131,7 @@ export default function Home() {
 
           </div>
 
+
           <div className="mt-12 space-y-4">
 
             {[
@@ -1059,7 +1148,7 @@ export default function Home() {
               {
                 question: "Est-ce que Tavixo fonctionne avec Android ?",
                 answer:
-                  "Oui. Les smartphones Android équipés du NFC peuvent également utiliser la carte Tavixo.",
+                  "Oui. Les smartphones Android équipés du NFC peuvent également utiliser Tavixo.",
               },
               {
                 question: "Que se passe-t-il si le NFC est désactivé ?",
@@ -1085,7 +1174,9 @@ export default function Home() {
 
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-5 font-black text-[#0B1F3A]">
 
-                  <span>{item.question}</span>
+                  <span>
+                    {item.question}
+                  </span>
 
                   <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#0B1F3A] text-[#00D4FF] transition group-open:rotate-45">
                     +
@@ -1121,12 +1212,14 @@ export default function Home() {
           </p>
 
           <h2 className="mt-5 text-4xl font-black text-white md:text-5xl">
-            Votre réseau commence par une connexion.
+            Network faster.
+            <br />
+            Look professional.
           </h2>
 
           <p className="mx-auto mt-5 max-w-xl leading-7 text-white/50">
-            Modernisez votre carte de visite et partagez votre identité
-            professionnelle en un simple tap.
+            Une seule carte pour partager votre identité professionnelle,
+            créer de nouvelles connexions et rester accessible.
           </p>
 
           <a
@@ -1164,6 +1257,7 @@ export default function Home() {
 
           </div>
 
+
           <div className="text-center md:text-right">
 
             <p className="text-sm text-white/40">
@@ -1175,6 +1269,7 @@ export default function Home() {
             </p>
 
           </div>
+
 
           <p className="text-xs text-white/25">
             © 2026 Tavixo. Tous droits réservés.

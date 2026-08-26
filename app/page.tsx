@@ -284,60 +284,116 @@ export default function Home() {
         </div>
       </section>
 
+{/* ========================================================= */}
+{/* TRUST BAR                                                 */}
+{/* ========================================================= */}
 
-      {/* ========================================================= */}
-      {/* TRUST BAR                                                 */}
-      {/* ========================================================= */}
+<section className="border-b border-[#0B1F3A]/10 bg-white">
 
-      <section className="border-b border-[#0B1F3A]/10 bg-white">
+  <div className="mx-auto grid max-w-7xl gap-4 px-5 py-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
 
-        <div className="mx-auto grid max-w-7xl gap-6 px-6 py-7 md:grid-cols-3">
+    {/* Paiement */}
+    <div className="group flex items-center gap-3 rounded-2xl border border-[#0B1F3A]/5 bg-[#F7FAFC] p-4 transition hover:-translate-y-1 hover:border-[#00A9CC]/20 hover:shadow-lg">
 
-          <div className="flex items-center justify-center gap-3 text-center">
-            <span className="text-xl text-[#00A9CC]">✓</span>
+      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0B1F3A] text-lg text-[#00D4FF]">
+        ✓
+      </div>
 
-            <div>
-              <p className="font-black text-[#0B1F3A]">
-                Simple à utiliser
-              </p>
+      <div>
+        <p className="text-sm font-black text-[#0B1F3A]">
+          Paiement sécurisé
+        </p>
 
-              <p className="text-xs text-[#151A21]/40">
-                Un simple Tap suffit
-              </p>
-            </div>
-          </div>
+        <p className="mt-0.5 text-[11px] text-[#151A21]/40">
+          Commandez en toute confiance
+        </p>
+      </div>
 
-          <div className="flex items-center justify-center gap-3 text-center">
-            <span className="text-xl text-[#00A9CC]">✓</span>
+    </div>
 
-            <div>
-              <p className="font-black text-[#0B1F3A]">
-                Sans application
-              </p>
 
-              <p className="text-xs text-[#151A21]/40">
-                Directement depuis votre smartphone
-              </p>
-            </div>
-          </div>
+    {/* Livraison */}
+    <div className="group flex items-center gap-3 rounded-2xl border border-[#0B1F3A]/5 bg-[#F7FAFC] p-4 transition hover:-translate-y-1 hover:border-[#00A9CC]/20 hover:shadow-lg">
 
-          <div className="flex items-center justify-center gap-3 text-center">
-            <span className="text-xl text-[#00A9CC]">✓</span>
+      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0B1F3A] text-lg text-[#00D4FF]">
+        🚚
+      </div>
 
-            <div>
-              <p className="font-black text-[#0B1F3A]">
-                Profil professionnel
-              </p>
+      <div>
+        <p className="text-sm font-black text-[#0B1F3A]">
+          Livraison au Maroc
+        </p>
 
-              <p className="text-xs text-[#151A21]/40">
-                Toutes vos informations au même endroit
-              </p>
-            </div>
-          </div>
+        <p className="mt-0.5 text-[11px] text-[#151A21]/40">
+          Partout au Maroc
+        </p>
+      </div>
 
-        </div>
+    </div>
 
-      </section>
+
+    {/* Personnalisation */}
+    <div className="group flex items-center gap-3 rounded-2xl border border-[#0B1F3A]/5 bg-[#F7FAFC] p-4 transition hover:-translate-y-1 hover:border-[#00A9CC]/20 hover:shadow-lg">
+
+      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0B1F3A] text-lg text-[#00D4FF]">
+        ✦
+      </div>
+
+      <div>
+        <p className="text-sm font-black text-[#0B1F3A]">
+          Personnalisation incluse
+        </p>
+
+        <p className="mt-0.5 text-[11px] text-[#151A21]/40">
+          Votre identité, votre profil
+        </p>
+      </div>
+
+    </div>
+
+
+    {/* Profil digital */}
+    <div className="group flex items-center gap-3 rounded-2xl border border-[#0B1F3A]/5 bg-[#F7FAFC] p-4 transition hover:-translate-y-1 hover:border-[#00A9CC]/20 hover:shadow-lg">
+
+      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0B1F3A] text-lg text-[#00D4FF]">
+        ◎
+      </div>
+
+      <div>
+        <p className="text-sm font-black text-[#0B1F3A]">
+          Profil digital inclus
+        </p>
+
+        <p className="mt-0.5 text-[11px] text-[#151A21]/40">
+          Prêt à partager
+        </p>
+      </div>
+
+    </div>
+
+
+    {/* Support */}
+    <div className="group flex items-center gap-3 rounded-2xl border border-[#0B1F3A]/5 bg-[#F7FAFC] p-4 transition hover:-translate-y-1 hover:border-[#00A9CC]/20 hover:shadow-lg">
+
+      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0B1F3A] text-lg text-[#00D4FF]">
+        ?
+      </div>
+
+      <div>
+        <p className="text-sm font-black text-[#0B1F3A]">
+          Support client
+        </p>
+
+        <p className="mt-0.5 text-[11px] text-[#151A21]/40">
+          Nous sommes à votre écoute
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
 
 
       {/* ========================================================= */}

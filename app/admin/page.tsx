@@ -9,6 +9,8 @@ type Product = {
   name: string;
   price: number;
   image: string | null;
+  images: string[] | null;
+  video_url: string | null;
   description: string | null;
   created_at: string;
 };
@@ -29,44 +31,74 @@ type Order = {
 export default function AdminPage() {
   const router = useRouter();
 
-  // =========================
+  // =========================================================
   // PRODUCTS
-  // =========================
+  // =========================================================
 
   const [products, setProducts] = useState<Product[]>([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
 
   const [productName, setProductName] = useState("");
   const [productPrice, setProductPrice] = useState("");
-  const [productDescription, setProductDescription] = useState("");
+  const [productDescription, setProductDescription] =
+    useState("");
+
+  // Main image URL - optional
   const [productImage, setProductImage] = useState("");
 
-  const [selectedImage, setSelectedImage] =
+  // Selected local images
+  const [selectedImages, setSelectedImages] =
+    useState<File[]>([]);
+
+  // Image previews
+  const [imagePreviews, setImagePreviews] =
+    useState<string[]>([]);
+
+  // Existing images when editing
+  const [existingImages, setExistingImages] =
+    useState<string[]>([]);
+
+  // Video
+  const [videoFile, setVideoFile] =
     useState<File | null>(null);
 
-  const [imagePreview, setImagePreview] = useState("");
+  const [videoPreview, setVideoPreview] =
+    useState("");
+
+  // Existing video when editing
+  const [existingVideoUrl, setExistingVideoUrl] =
+    useState("");
 
   const [editingId, setEditingId] =
     useState<string | null>(null);
 
   const [saving, setSaving] = useState(false);
-  const [uploadingImage, setUploadingImage] = useState(false);
+  const [uploadingImage, setUploadingImage] =
+    useState(false);
 
-  const [productError, setProductError] = useState("");
+  const [uploadingVideo, setUploadingVideo] =
+    useState(false);
 
-  // =========================
+  const [productError, setProductError] =
+    useState("");
+
+  // =========================================================
   // ORDERS
-  // =========================
+  // =========================================================
 
   const [orders, setOrders] = useState<Order[]>([]);
-  const [loadingOrders, setLoadingOrders] = useState(true);
-  const [ordersError, setOrdersError] = useState("");
+  const [loadingOrders, setLoadingOrders] =
+    useState(true);
 
-  const [filter, setFilter] = useState("Toutes");
+  const [ordersError, setOrdersError] =
+    useState("");
 
-  // =========================
+  const [filter, setFilter] =
+    useState("Toutes");
+
+  // =========================================================
   // CHECK AUTH
-  // =========================
+  // =========================================================
 
   useEffect(() => {
     async function checkUser() {
@@ -86,9 +118,9 @@ export default function AdminPage() {
     checkUser();
   }, [router]);
 
-  // =========================
+  // =========================================================
   // LOAD PRODUCTS
-  // =========================
+  // =========================================================
 
   async function loadProducts() {
     setLoadingProducts(true);
@@ -119,9 +151,9 @@ export default function AdminPage() {
     setLoadingProducts(false);
   }
 
-  // =========================
+  // =========================================================
   // LOAD ORDERS
-  // =========================
+  // =========================================================
 
   async function loadOrders() {
     setLoadingOrders(true);
@@ -153,50 +185,154 @@ export default function AdminPage() {
     setLoadingOrders(false);
   }
 
-  // =========================
+  // =========================================================
   // IMAGE CHANGE
-  // =========================
+  // =========================================================
 
-  function handleImageChange(
+  function handleImagesChange(
+    e: React.ChangeEvent<HTMLInputElement>
+  ) {
+    const files = Array.from(e.target.files || []);
+
+    if (!files.length) return;
+
+    setProductError("");
+
+    // Maximum 3 images
+    if (files.length > 3) {
+      setProductError(
+        "Tu peux choisir maximum 3 images."
+      );
+      return;
+    }
+
+    // Check each image
+    for (const file of files) {
+      if (!file.type.startsWith("image/")) {
+        setProductError(
+          "Tous les fichiers doivent être des images."
+        );
+        return;
+      }
+
+      if (file.size > 5 * 1024 * 1024) {
+        setProductError(
+          "Chaque image ne doit pas dépasser 5 MB."
+        );
+        return;
+      }
+    }
+
+    // Clean old previews
+    imagePreviews.forEach((url) => {
+      URL.revokeObjectURL(url);
+    });
+
+    const previews = files.map((file) =>
+      URL.createObjectURL(file)
+    );
+
+    setSelectedImages(files);
+    setImagePreviews(previews);
+
+    // If new images are selected, first one becomes main image
+    setProductImage("");
+  }
+
+  // =========================================================
+  // REMOVE SELECTED IMAGE
+  // =========================================================
+
+  function removeSelectedImage(index: number) {
+    const newFiles = selectedImages.filter(
+      (_, i) => i !== index
+    );
+
+    const oldPreview = imagePreviews[index];
+
+    if (oldPreview) {
+      URL.revokeObjectURL(oldPreview);
+    }
+
+    const newPreviews = imagePreviews.filter(
+      (_, i) => i !== index
+    );
+
+    setSelectedImages(newFiles);
+    setImagePreviews(newPreviews);
+  }
+
+  // =========================================================
+  // REMOVE EXISTING IMAGE
+  // =========================================================
+
+  function removeExistingImage(index: number) {
+    const newImages = existingImages.filter(
+      (_, i) => i !== index
+    );
+
+    setExistingImages(newImages);
+  }
+
+  // =========================================================
+  // VIDEO CHANGE
+  // =========================================================
+
+  function handleVideoChange(
     e: React.ChangeEvent<HTMLInputElement>
   ) {
     const file = e.target.files?.[0];
 
     if (!file) return;
 
-    if (!file.type.startsWith("image/")) {
-      setProductError(
-        "Veuillez choisir une image valide."
-      );
-      return;
-    }
-
-    if (file.size > 5 * 1024 * 1024) {
-      setProductError(
-        "L'image ne doit pas dépasser 5 MB."
-      );
-      return;
-    }
-
     setProductError("");
-    setSelectedImage(file);
+
+    if (!file.type.startsWith("video/")) {
+      setProductError(
+        "Veuillez choisir une vidéo valide."
+      );
+      return;
+    }
+
+    // Maximum 50 MB
+    if (file.size > 50 * 1024 * 1024) {
+      setProductError(
+        "La vidéo ne doit pas dépasser 50 MB."
+      );
+      return;
+    }
+
+    if (videoPreview) {
+      URL.revokeObjectURL(videoPreview);
+    }
 
     const previewUrl =
       URL.createObjectURL(file);
 
-    setImagePreview(previewUrl);
-
-    setProductImage("");
+    setVideoFile(file);
+    setVideoPreview(previewUrl);
+    setExistingVideoUrl("");
   }
 
-  // =========================
+  // =========================================================
+  // REMOVE VIDEO
+  // =========================================================
+
+  function removeVideo() {
+    if (videoPreview) {
+      URL.revokeObjectURL(videoPreview);
+    }
+
+    setVideoFile(null);
+    setVideoPreview("");
+    setExistingVideoUrl("");
+  }
+
+  // =========================================================
   // UPLOAD IMAGE
-  // =========================
+  // =========================================================
 
   async function uploadImage(file: File) {
-    setUploadingImage(true);
-    setProductError("");
-
     const fileExt =
       file.name.split(".").pop() || "jpg";
 
@@ -204,15 +340,17 @@ export default function AdminPage() {
       .toString(36)
       .substring(2)}.${fileExt}`;
 
-    const filePath = `products/${fileName}`;
+    const filePath =
+      `products/${fileName}`;
 
-    const { error: uploadError } =
-      await supabase.storage
-        .from("product-images")
-        .upload(filePath, file, {
-          cacheControl: "3600",
-          upsert: false,
-        });
+    const {
+      error: uploadError,
+    } = await supabase.storage
+      .from("product-images")
+      .upload(filePath, file, {
+        cacheControl: "3600",
+        upsert: false,
+      });
 
     if (uploadError) {
       console.error(
@@ -220,27 +358,66 @@ export default function AdminPage() {
         uploadError
       );
 
-      setProductError(
+      throw new Error(
         `Erreur upload image: ${uploadError.message}`
       );
-
-      setUploadingImage(false);
-
-      return null;
     }
 
-    const { data } = supabase.storage
-      .from("product-images")
-      .getPublicUrl(filePath);
-
-    setUploadingImage(false);
+    const { data } =
+      supabase.storage
+        .from("product-images")
+        .getPublicUrl(filePath);
 
     return data.publicUrl;
   }
 
-  // =========================
+  // =========================================================
+  // UPLOAD VIDEO
+  // =========================================================
+
+  async function uploadVideo(file: File) {
+    const fileExt =
+      file.name.split(".").pop() || "mp4";
+
+    const fileName = `${Date.now()}-${Math.random()
+      .toString(36)
+      .substring(2)}.${fileExt}`;
+
+    const filePath =
+      `products/videos/${fileName}`;
+
+    const {
+      error: uploadError,
+    } = await supabase.storage
+      .from("product-images")
+      .upload(filePath, file, {
+        cacheControl: "3600",
+        upsert: false,
+        contentType: file.type,
+      });
+
+    if (uploadError) {
+      console.error(
+        "SUPABASE VIDEO UPLOAD ERROR:",
+        uploadError
+      );
+
+      throw new Error(
+        `Erreur upload vidéo: ${uploadError.message}`
+      );
+    }
+
+    const { data } =
+      supabase.storage
+        .from("product-images")
+        .getPublicUrl(filePath);
+
+    return data.publicUrl;
+  }
+
+  // =========================================================
   // SAVE PRODUCT
-  // =========================
+  // =========================================================
 
   async function handleSaveProduct(
     e: React.FormEvent<HTMLFormElement>
@@ -266,39 +443,126 @@ export default function AdminPage() {
       return;
     }
 
+    if (selectedImages.length > 3) {
+      setProductError(
+        "Maximum 3 images."
+      );
+      return;
+    }
+
     setSaving(true);
 
     try {
-      let finalImageUrl =
-        productImage.trim() || null;
+      // =====================================================
+      // UPLOAD IMAGES
+      // =====================================================
 
-      // Upload image locale
-      if (selectedImage) {
-        const uploadedUrl =
-          await uploadImage(selectedImage);
+      let uploadedImages: string[] = [];
 
-        if (!uploadedUrl) {
-          setSaving(false);
-          return;
+      if (selectedImages.length > 0) {
+        setUploadingImage(true);
+
+        for (const file of selectedImages) {
+          const url =
+            await uploadImage(file);
+
+          uploadedImages.push(url);
         }
 
-        finalImageUrl = uploadedUrl;
+        setUploadingImage(false);
       }
+
+      // =====================================================
+      // BUILD FINAL IMAGES ARRAY
+      // =====================================================
+
+      let finalImages: string[] = [];
+
+      // When editing:
+      // keep existing images + add new images
+      if (editingId) {
+        finalImages = [
+          ...existingImages,
+          ...uploadedImages,
+        ];
+      } else {
+        finalImages = [
+          ...uploadedImages,
+        ];
+      }
+
+      // Maximum 3 images
+      finalImages =
+        finalImages.slice(0, 3);
+
+      // If URL was entered manually and there are no uploaded images
+      if (
+        productImage.trim() &&
+        finalImages.length === 0
+      ) {
+        finalImages = [
+          productImage.trim(),
+        ];
+      }
+
+      // Main image = first image
+      const mainImage =
+        finalImages.length > 0
+          ? finalImages[0]
+          : productImage.trim() || null;
+
+      // =====================================================
+      // UPLOAD VIDEO
+      // =====================================================
+
+      let finalVideoUrl =
+        existingVideoUrl || null;
+
+      if (videoFile) {
+        setUploadingVideo(true);
+
+        finalVideoUrl =
+          await uploadVideo(videoFile);
+
+        setUploadingVideo(false);
+      }
+
+      // =====================================================
+      // PRODUCT DATA
+      // =====================================================
 
       const productData = {
         name: productName.trim(),
-        price: Number(productPrice),
+
+        price: Number(
+          productPrice
+        ),
+
         description:
-          productDescription.trim() || null,
-        image: finalImageUrl,
+          productDescription.trim() ||
+          null,
+
+        // Backward compatibility
+        image: mainImage,
+
+        // New gallery
+        images: finalImages,
+
+        // Video
+        video_url:
+          finalVideoUrl,
       };
 
+      // =====================================================
       // UPDATE
+      // =====================================================
+
       if (editingId) {
-        const { error } = await supabase
-          .from("products")
-          .update(productData)
-          .eq("id", editingId);
+        const { error } =
+          await supabase
+            .from("products")
+            .update(productData)
+            .eq("id", editingId);
 
         if (error) {
           console.error(
@@ -315,11 +579,15 @@ export default function AdminPage() {
         }
       }
 
+      // =====================================================
       // INSERT
+      // =====================================================
+
       else {
-        const { error } = await supabase
-          .from("products")
-          .insert(productData);
+        const { error } =
+          await supabase
+            .from("products")
+            .insert(productData);
 
         if (error) {
           console.error(
@@ -337,36 +605,95 @@ export default function AdminPage() {
       }
 
       resetProductForm();
+
       await loadProducts();
     } catch (error) {
       console.error(error);
 
-      setProductError(
-        "Une erreur inattendue est survenue."
-      );
+      setUploadingImage(false);
+      setUploadingVideo(false);
+
+      if (error instanceof Error) {
+        setProductError(
+          error.message
+        );
+      } else {
+        setProductError(
+          "Une erreur inattendue est survenue."
+        );
+      }
     }
 
     setSaving(false);
   }
 
-  // =========================
+  // =========================================================
   // EDIT PRODUCT
-  // =========================
+  // =========================================================
 
   function startEdit(product: Product) {
     setEditingId(product.id);
 
-    setProductName(product.name);
-    setProductPrice(String(product.price));
+    setProductName(
+      product.name
+    );
+
+    setProductPrice(
+      String(product.price)
+    );
 
     setProductDescription(
       product.description || ""
     );
 
-    setProductImage(product.image || "");
+    // Get existing gallery
+    let gallery =
+      Array.isArray(product.images)
+        ? product.images
+        : [];
 
-    setSelectedImage(null);
-    setImagePreview(product.image || "");
+    // Compatibility with old products
+    if (
+      gallery.length === 0 &&
+      product.image
+    ) {
+      gallery = [
+        product.image,
+      ];
+    }
+
+    setExistingImages(
+      gallery.slice(0, 3)
+    );
+
+    setProductImage(
+      product.image || ""
+    );
+
+    setSelectedImages([]);
+
+    imagePreviews.forEach((url) => {
+      URL.revokeObjectURL(url);
+    });
+
+    setImagePreviews([]);
+
+    // Existing video
+    setExistingVideoUrl(
+      product.video_url || ""
+    );
+
+    setVideoFile(null);
+
+    if (videoPreview) {
+      URL.revokeObjectURL(
+        videoPreview
+      );
+    }
+
+    setVideoPreview("");
+
+    setProductError("");
 
     window.scrollTo({
       top: 0,
@@ -374,23 +701,27 @@ export default function AdminPage() {
     });
   }
 
-  // =========================
+  // =========================================================
   // DELETE PRODUCT
-  // =========================
+  // =========================================================
 
-  async function deleteProduct(id: string) {
-    const confirmed = window.confirm(
-      "Voulez-vous vraiment supprimer ce produit ?"
-    );
+  async function deleteProduct(
+    id: string
+  ) {
+    const confirmed =
+      window.confirm(
+        "Voulez-vous vraiment supprimer ce produit ?"
+      );
 
     if (!confirmed) return;
 
     setProductError("");
 
-    const { error } = await supabase
-      .from("products")
-      .delete()
-      .eq("id", id);
+    const { error } =
+      await supabase
+        .from("products")
+        .delete()
+        .eq("id", id);
 
     if (error) {
       console.error(
@@ -408,9 +739,9 @@ export default function AdminPage() {
     await loadProducts();
   }
 
-  // =========================
+  // =========================================================
   // RESET FORM
-  // =========================
+  // =========================================================
 
   function resetProductForm() {
     setEditingId(null);
@@ -420,25 +751,44 @@ export default function AdminPage() {
     setProductDescription("");
     setProductImage("");
 
-    setSelectedImage(null);
-    setImagePreview("");
+    setSelectedImages([]);
+
+    imagePreviews.forEach((url) => {
+      URL.revokeObjectURL(url);
+    });
+
+    setImagePreviews([]);
+
+    setExistingImages([]);
+
+    setVideoFile(null);
+
+    if (videoPreview) {
+      URL.revokeObjectURL(videoPreview);
+    }
+
+    setVideoPreview("");
+
+    setExistingVideoUrl("");
 
     setProductError("");
   }
 
-  // =========================
+  // =========================================================
   // LOGOUT
-  // =========================
+  // =========================================================
 
   async function handleLogout() {
     await supabase.auth.signOut();
 
-    router.replace("/admin/login");
+    router.replace(
+      "/admin/login"
+    );
   }
 
-  // =========================
+  // =========================================================
   // ORDER FILTER
-  // =========================
+  // =========================================================
 
   const filteredOrders =
     filter === "Toutes"
@@ -448,29 +798,37 @@ export default function AdminPage() {
             order.status === filter
         );
 
-  // =========================
+  // =========================================================
   // ORDER STATS
-  // =========================
+  // =========================================================
 
-  const totalRevenue = orders.reduce(
-    (sum, order) =>
-      sum + Number(order.total || 0),
-    0
-  );
+  const totalRevenue =
+    orders.reduce(
+      (sum, order) =>
+        sum +
+        Number(
+          order.total || 0
+        ),
+      0
+    );
 
-  const newOrders = orders.filter(
-    (order) =>
-      order.status === "Nouvelle"
-  ).length;
+  const newOrders =
+    orders.filter(
+      (order) =>
+        order.status ===
+        "Nouvelle"
+    ).length;
 
-  // =========================
+  // =========================================================
   // UI
-  // =========================
+  // =========================================================
 
   return (
     <main className="min-h-screen bg-[#07111F] text-white">
 
-      {/* HEADER */}
+      {/* =====================================================
+          HEADER
+      ===================================================== */}
 
       <header className="border-b border-white/10 bg-[#0B1522]">
 
@@ -507,7 +865,9 @@ export default function AdminPage() {
 
             <button
               type="button"
-              onClick={handleLogout}
+              onClick={
+                handleLogout
+              }
               className="rounded-full border border-red-500/20 px-5 py-2 text-sm font-bold text-red-400 transition hover:bg-red-500/10"
             >
               Déconnexion
@@ -519,11 +879,15 @@ export default function AdminPage() {
 
       </header>
 
-      {/* MAIN */}
+      {/* =====================================================
+          MAIN
+      ===================================================== */}
 
       <div className="mx-auto max-w-7xl px-6 py-12">
 
-        {/* TITLE */}
+        {/* ===================================================
+            TITLE
+        =================================================== */}
 
         <div>
 
@@ -541,9 +905,9 @@ export default function AdminPage() {
 
         </div>
 
-        {/* ========================= */}
-        {/* PRODUCTS */}
-        {/* ========================= */}
+        {/* ===================================================
+            PRODUCTS
+        =================================================== */}
 
         <section className="mt-12">
 
@@ -563,7 +927,9 @@ export default function AdminPage() {
 
           </div>
 
-          {/* PRODUCT FORM */}
+          {/* =================================================
+              PRODUCT FORM
+          ================================================= */}
 
           <div className="rounded-[28px] border border-white/10 bg-[#0D1826] p-6 md:p-8">
 
@@ -572,35 +938,45 @@ export default function AdminPage() {
               <div>
 
                 <h3 className="text-xl font-black">
+
                   {editingId
                     ? "Modifier le produit"
                     : "Ajouter un produit"}
+
                 </h3>
 
                 <p className="mt-1 text-sm text-white/30">
-                  Les informations seront enregistrées dans Supabase.
+                  Jusqu'à 3 images + 1 vidéo.
                 </p>
 
               </div>
 
               {editingId && (
+
                 <button
                   type="button"
-                  onClick={resetProductForm}
+                  onClick={
+                    resetProductForm
+                  }
                   className="rounded-full border border-white/10 px-4 py-2 text-sm font-bold text-white/50 hover:text-white"
                 >
                   Annuler
                 </button>
+
               )}
 
             </div>
 
             <form
-              onSubmit={handleSaveProduct}
+              onSubmit={
+                handleSaveProduct
+              }
               className="mt-7 grid gap-5 md:grid-cols-2"
             >
 
-              {/* NAME */}
+              {/* =================================================
+                  NAME
+              ================================================= */}
 
               <div>
 
@@ -610,7 +986,9 @@ export default function AdminPage() {
 
                 <input
                   type="text"
-                  value={productName}
+                  value={
+                    productName
+                  }
                   onChange={(e) =>
                     setProductName(
                       e.target.value
@@ -622,7 +1000,9 @@ export default function AdminPage() {
 
               </div>
 
-              {/* PRICE */}
+              {/* =================================================
+                  PRICE
+              ================================================= */}
 
               <div>
 
@@ -633,7 +1013,9 @@ export default function AdminPage() {
                 <input
                   type="number"
                   min="0"
-                  value={productPrice}
+                  value={
+                    productPrice
+                  }
                   onChange={(e) =>
                     setProductPrice(
                       e.target.value
@@ -645,7 +1027,9 @@ export default function AdminPage() {
 
               </div>
 
-              {/* DESCRIPTION */}
+              {/* =================================================
+                  DESCRIPTION
+              ================================================= */}
 
               <div className="md:col-span-2">
 
@@ -654,7 +1038,9 @@ export default function AdminPage() {
                 </label>
 
                 <textarea
-                  value={productDescription}
+                  value={
+                    productDescription
+                  }
                   onChange={(e) =>
                     setProductDescription(
                       e.target.value
@@ -667,96 +1053,332 @@ export default function AdminPage() {
 
               </div>
 
-              {/* IMAGE */}
+              {/* =================================================
+                  EXISTING IMAGES
+              ================================================= */}
+
+              {editingId &&
+                existingImages.length >
+                  0 && (
+
+                  <div className="md:col-span-2">
+
+                    <label className="text-sm font-bold text-white/60">
+                      Images actuelles
+                    </label>
+
+                    <div className="mt-3 grid grid-cols-2 gap-4 md:grid-cols-3">
+
+                      {existingImages.map(
+                        (
+                          image,
+                          index
+                        ) => (
+
+                          <div
+                            key={`${image}-${index}`}
+                            className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#07111F]"
+                          >
+
+                            <img
+                              src={
+                                image
+                              }
+                              alt={`Image ${index + 1}`}
+                              className="h-40 w-full object-cover"
+                            />
+
+                            <button
+                              type="button"
+                              onClick={() =>
+                                removeExistingImage(
+                                  index
+                                )
+                              }
+                              className="absolute right-2 top-2 rounded-full bg-red-500 px-3 py-1 text-xs font-black text-white"
+                            >
+                              Supprimer
+                            </button>
+
+                            {index ===
+                              0 && (
+
+                              <span className="absolute bottom-2 left-2 rounded-full bg-[#00D9FF] px-3 py-1 text-xs font-black text-[#07111F]">
+                                Principale
+                              </span>
+
+                            )}
+
+                          </div>
+
+                        )
+                      )}
+
+                    </div>
+
+                  </div>
+
+                )}
+
+              {/* =================================================
+                  IMAGE URL
+              ================================================= */}
 
               <div className="md:col-span-2">
 
                 <label className="text-sm font-bold text-white/60">
-                  Image du produit
+                  Image principale par URL
                 </label>
 
                 <input
                   type="text"
-                  value={productImage}
+                  value={
+                    productImage
+                  }
                   onChange={(e) => {
+
                     setProductImage(
                       e.target.value
                     );
 
-                    setSelectedImage(null);
-
-                    setImagePreview(
-                      e.target.value
-                    );
                   }}
                   placeholder="https://..."
                   className="mt-2 w-full rounded-xl border border-white/10 bg-[#07111F] px-4 py-3 text-white outline-none focus:border-[#00D9FF]"
                 />
 
-                <p className="my-3 text-center text-xs font-bold text-white/25">
-                  OU
+                <p className="mt-2 text-xs text-white/25">
+                  Optionnel. Si tu upload des images, elles seront utilisées en priorité.
                 </p>
 
-                <label className="flex cursor-pointer flex-col items-center justify-center rounded-2xl border border-dashed border-white/15 bg-[#07111F] px-6 py-8 text-center transition hover:border-[#00D9FF] hover:bg-[#00D9FF]/5">
+              </div>
 
-                  <span className="text-3xl">
-                    📷
+              {/* =================================================
+                  UPLOAD IMAGES
+              ================================================= */}
+
+              <div className="md:col-span-2">
+
+                <label className="text-sm font-bold text-white/60">
+                  Galerie du produit
+                </label>
+
+                <label className="mt-3 flex cursor-pointer flex-col items-center justify-center rounded-2xl border border-dashed border-white/15 bg-[#07111F] px-6 py-8 text-center transition hover:border-[#00D9FF] hover:bg-[#00D9FF]/5">
+
+                  <span className="text-4xl">
+                    🖼️
                   </span>
 
                   <span className="mt-3 font-black">
-                    Choisir une image
+                    Choisir jusqu'à 3 images
                   </span>
 
                   <span className="mt-1 text-xs text-white/30">
-                    PNG, JPG, WEBP — maximum 5 MB
+                    PNG, JPG, WEBP — maximum 5 MB par image
                   </span>
 
                   <input
                     type="file"
-                    accept="image/png,image/jpeg,image/webp,image/gif"
+                    accept="image/png,image/jpeg,image/webp"
+                    multiple
                     onChange={
-                      handleImageChange
+                      handleImagesChange
                     }
                     className="hidden"
                   />
 
                 </label>
 
-                {imagePreview && (
+                {/* NEW IMAGE PREVIEWS */}
+
+                {imagePreviews.length >
+                  0 && (
+
                   <div className="mt-5">
 
-                    <p className="mb-2 text-xs font-bold text-white/30">
-                      Aperçu
+                    <p className="mb-3 text-xs font-bold text-white/30">
+                      Nouvelles images
                     </p>
 
-                    <div className="relative h-48 w-full overflow-hidden rounded-2xl border border-white/10 bg-[#07111F]">
+                    <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
 
-                      <img
-                        src={imagePreview}
-                        alt="Aperçu du produit"
-                        className="h-full w-full object-contain"
-                      />
+                      {imagePreviews.map(
+                        (
+                          preview,
+                          index
+                        ) => (
+
+                          <div
+                            key={preview}
+                            className="relative overflow-hidden rounded-2xl border border-[#00D9FF]/20 bg-[#07111F]"
+                          >
+
+                            <img
+                              src={
+                                preview
+                              }
+                              alt={`Preview ${index + 1}`}
+                              className="h-40 w-full object-cover"
+                            />
+
+                            <button
+                              type="button"
+                              onClick={() =>
+                                removeSelectedImage(
+                                  index
+                                )
+                              }
+                              className="absolute right-2 top-2 rounded-full bg-red-500 px-3 py-1 text-xs font-black text-white"
+                            >
+                              Supprimer
+                            </button>
+
+                            {index ===
+                              0 && (
+
+                              <span className="absolute bottom-2 left-2 rounded-full bg-[#00D9FF] px-3 py-1 text-xs font-black text-[#07111F]">
+                                Principale
+                              </span>
+
+                            )}
+
+                          </div>
+
+                        )
+                      )}
 
                     </div>
 
                   </div>
-                )}
 
-                <p className="mt-2 text-xs text-white/25">
-                  Tu peux soit coller un lien, soit choisir directement une image depuis ton appareil.
-                </p>
+                )}
 
               </div>
 
-              {/* ERROR */}
+              {/* =================================================
+                  VIDEO
+              ================================================= */}
+
+              <div className="md:col-span-2">
+
+                <label className="text-sm font-bold text-white/60">
+                  Vidéo du produit
+                </label>
+
+                {/* Existing video */}
+
+                {existingVideoUrl &&
+                  !videoPreview && (
+
+                  <div className="mt-4 overflow-hidden rounded-2xl border border-white/10 bg-[#07111F]">
+
+                    <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
+
+                      <span className="text-sm font-bold text-white/50">
+                        Vidéo actuelle
+                      </span>
+
+                      <button
+                        type="button"
+                        onClick={
+                          removeVideo
+                        }
+                        className="rounded-full bg-red-500/10 px-3 py-1 text-xs font-bold text-red-400"
+                      >
+                        Supprimer
+                      </button>
+
+                    </div>
+
+                    <video
+                      src={
+                        existingVideoUrl
+                      }
+                      controls
+                      className="max-h-[400px] w-full"
+                    />
+
+                  </div>
+
+                )}
+
+                <label className="mt-4 flex cursor-pointer flex-col items-center justify-center rounded-2xl border border-dashed border-white/15 bg-[#07111F] px-6 py-8 text-center transition hover:border-[#00D9FF] hover:bg-[#00D9FF]/5">
+
+                  <span className="text-4xl">
+                    🎥
+                  </span>
+
+                  <span className="mt-3 font-black">
+                    Choisir une vidéo
+                  </span>
+
+                  <span className="mt-1 text-xs text-white/30">
+                    MP4, WEBM, MOV — maximum 50 MB
+                  </span>
+
+                  <input
+                    type="file"
+                    accept="video/mp4,video/webm,video/quicktime"
+                    onChange={
+                      handleVideoChange
+                    }
+                    className="hidden"
+                  />
+
+                </label>
+
+                {/* New video preview */}
+
+                {videoPreview && (
+
+                  <div className="relative mt-5 overflow-hidden rounded-2xl border border-[#00D9FF]/20 bg-[#07111F]">
+
+                    <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
+
+                      <span className="text-sm font-bold text-white/50">
+                        Aperçu vidéo
+                      </span>
+
+                      <button
+                        type="button"
+                        onClick={
+                          removeVideo
+                        }
+                        className="rounded-full bg-red-500/10 px-3 py-1 text-xs font-bold text-red-400"
+                      >
+                        Supprimer
+                      </button>
+
+                    </div>
+
+                    <video
+                      src={
+                        videoPreview
+                      }
+                      controls
+                      className="max-h-[400px] w-full"
+                    />
+
+                  </div>
+
+                )}
+
+              </div>
+
+              {/* =================================================
+                  ERROR
+              ================================================= */}
 
               {productError && (
+
                 <div className="md:col-span-2 rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm font-bold text-red-400">
                   {productError}
                 </div>
+
               )}
 
-              {/* BUTTON */}
+              {/* =================================================
+                  BUTTON
+              ================================================= */}
 
               <div className="md:col-span-2">
 
@@ -764,17 +1386,22 @@ export default function AdminPage() {
                   type="submit"
                   disabled={
                     saving ||
-                    uploadingImage
+                    uploadingImage ||
+                    uploadingVideo
                   }
                   className="rounded-full bg-[#00D9FF] px-7 py-3 font-black text-[#07111F] transition hover:bg-[#45DEFF] disabled:opacity-50"
                 >
+
                   {uploadingImage
-                    ? "Upload de l'image..."
+                    ? "Upload des images..."
+                    : uploadingVideo
+                    ? "Upload de la vidéo..."
                     : saving
                     ? "Enregistrement..."
                     : editingId
                     ? "Enregistrer les modifications"
                     : "Ajouter le produit"}
+
                 </button>
 
               </div>
@@ -783,7 +1410,9 @@ export default function AdminPage() {
 
           </div>
 
-          {/* PRODUCTS LIST */}
+          {/* ===================================================
+              PRODUCTS LIST
+          =================================================== */}
 
           <div className="mt-7 overflow-hidden rounded-[28px] border border-white/10 bg-[#0D1826]">
 
@@ -801,7 +1430,8 @@ export default function AdminPage() {
                 Chargement des produits...
               </div>
 
-            ) : products.length === 0 ? (
+            ) : products.length ===
+              0 ? (
 
               <div className="px-6 py-16 text-center">
 
@@ -820,81 +1450,155 @@ export default function AdminPage() {
               <div className="divide-y divide-white/5">
 
                 {products.map(
-                  (product) => (
+                  (product) => {
 
-                    <div
-                      key={product.id}
-                      className="flex flex-col gap-5 p-6 md:flex-row md:items-center md:justify-between"
-                    >
+                    const gallery =
+                      Array.isArray(
+                        product.images
+                      ) &&
+                      product.images.length >
+                        0
+                        ? product.images
+                        : product.image
+                        ? [
+                            product.image,
+                          ]
+                        : [];
 
-                      <div className="flex items-center gap-5">
+                    return (
 
-                        {product.image ? (
+                      <div
+                        key={
+                          product.id
+                        }
+                        className="flex flex-col gap-5 p-6 md:flex-row md:items-center md:justify-between"
+                      >
 
-                          <img
-                            src={product.image}
-                            alt={product.name}
-                            className="h-20 w-20 rounded-2xl object-cover"
-                          />
+                        <div className="flex items-center gap-5">
 
-                        ) : (
+                          {/* Product image */}
 
-                          <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-[#07111F] text-xs font-black text-[#00D9FF]">
-                            NFC
+                          {gallery.length >
+                          0 ? (
+
+                            <div className="relative h-20 w-20 overflow-hidden rounded-2xl bg-[#07111F]">
+
+                              <img
+                                src={
+                                  gallery[0]
+                                }
+                                alt={
+                                  product.name
+                                }
+                                className="h-full w-full object-cover"
+                              />
+
+                              {gallery.length >
+                                1 && (
+
+                                <span className="absolute bottom-1 right-1 rounded-full bg-black/70 px-2 py-0.5 text-[10px] font-black text-white">
+                                  +{gallery.length - 1}
+                                </span>
+
+                              )}
+
+                            </div>
+
+                          ) : (
+
+                            <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-[#07111F] text-xs font-black text-[#00D9FF]">
+                              NFC
+                            </div>
+
+                          )}
+
+                          <div>
+
+                            <h4 className="text-lg font-black">
+                              {
+                                product.name
+                              }
+                            </h4>
+
+                            <p className="mt-1 text-sm text-white/35">
+                              {
+                                product.description ||
+                                "Aucune description"
+                              }
+                            </p>
+
+                            <div className="mt-2 flex flex-wrap items-center gap-3">
+
+                              <p className="font-black text-[#00D9FF]">
+                                {
+                                  product.price
+                                }{" "}
+                                DH
+                              </p>
+
+                              {gallery.length >
+                                0 && (
+
+                                <span className="rounded-full bg-white/5 px-3 py-1 text-xs font-bold text-white/40">
+                                  📷{" "}
+                                  {
+                                    gallery.length
+                                  }{" "}
+                                  image
+                                  {gallery.length >
+                                  1
+                                    ? "s"
+                                    : ""}
+                                </span>
+
+                              )}
+
+                              {product.video_url && (
+
+                                <span className="rounded-full bg-white/5 px-3 py-1 text-xs font-bold text-white/40">
+                                  🎥 Vidéo
+                                </span>
+
+                              )}
+
+                            </div>
+
                           </div>
 
-                        )}
+                        </div>
 
-                        <div>
+                        <div className="flex gap-3">
 
-                          <h4 className="text-lg font-black">
-                            {product.name}
-                          </h4>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              startEdit(
+                                product
+                              )
+                            }
+                            className="rounded-full border border-white/10 px-5 py-2.5 text-sm font-bold text-white/60 transition hover:border-[#00D9FF] hover:text-[#00D9FF]"
+                          >
+                            Modifier
+                          </button>
 
-                          <p className="mt-1 text-sm text-white/35">
-                            {product.description ||
-                              "Aucune description"}
-                          </p>
-
-                          <p className="mt-2 font-black text-[#00D9FF]">
-                            {product.price} DH
-                          </p>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              deleteProduct(
+                                product.id
+                              )
+                            }
+                            className="rounded-full border border-red-500/20 px-5 py-2.5 text-sm font-bold text-red-400 transition hover:bg-red-500/10"
+                          >
+                            Supprimer
+                          </button>
 
                         </div>
 
                       </div>
 
-                      <div className="flex gap-3">
-
-                        <button
-                          type="button"
-                          onClick={() =>
-                            startEdit(
-                              product
-                            )
-                          }
-                          className="rounded-full border border-white/10 px-5 py-2.5 text-sm font-bold text-white/60 transition hover:border-[#00D9FF] hover:text-[#00D9FF]"
-                        >
-                          Modifier
-                        </button>
-
-                        <button
-                          type="button"
-                          onClick={() =>
-                            deleteProduct(
-                              product.id
-                            )
-                          }
-                          className="rounded-full border border-red-500/20 px-5 py-2.5 text-sm font-bold text-red-400 transition hover:bg-red-500/10"
-                        >
-                          Supprimer
-                        </button>
-
-                      </div>
-
-                    </div>
-
-                  )
+                    );
+                  }
                 )}
 
               </div>
@@ -905,9 +1609,9 @@ export default function AdminPage() {
 
         </section>
 
-        {/* ========================= */}
-        {/* ORDERS */}
-        {/* ========================= */}
+        {/* =====================================================
+            ORDERS
+        ===================================================== */}
 
         <section className="mt-20">
 
@@ -927,7 +1631,9 @@ export default function AdminPage() {
 
           </div>
 
-          {/* STATS */}
+          {/* ===================================================
+              STATS
+          =================================================== */}
 
           <div className="mt-8 grid gap-5 md:grid-cols-3">
 
@@ -938,7 +1644,9 @@ export default function AdminPage() {
               </p>
 
               <p className="mt-3 text-4xl font-black">
-                {orders.length}
+                {
+                  orders.length
+                }
               </p>
 
             </div>
@@ -950,7 +1658,9 @@ export default function AdminPage() {
               </p>
 
               <p className="mt-3 text-4xl font-black text-[#00D9FF]">
-                {newOrders}
+                {
+                  newOrders
+                }
               </p>
 
             </div>
@@ -962,14 +1672,19 @@ export default function AdminPage() {
               </p>
 
               <p className="mt-3 text-4xl font-black text-[#00D9FF]">
-                {totalRevenue} DH
+                {
+                  totalRevenue
+                }{" "}
+                DH
               </p>
 
             </div>
 
           </div>
 
-          {/* FILTERS */}
+          {/* ===================================================
+              FILTERS
+          =================================================== */}
 
           <div className="mt-10">
 
@@ -988,18 +1703,25 @@ export default function AdminPage() {
                 (status) => (
 
                   <button
-                    key={status}
+                    key={
+                      status
+                    }
                     type="button"
                     onClick={() =>
-                      setFilter(status)
+                      setFilter(
+                        status
+                      )
                     }
                     className={`rounded-full px-5 py-2.5 text-sm font-bold transition ${
-                      filter === status
+                      filter ===
+                      status
                         ? "bg-[#00D9FF] text-[#07111F]"
                         : "border border-white/10 bg-[#0D1826] text-white/50 hover:text-white"
                     }`}
                   >
-                    {status}
+                    {
+                      status
+                    }
                   </button>
 
                 )
@@ -1009,17 +1731,23 @@ export default function AdminPage() {
 
           </div>
 
-          {/* ERROR ORDERS */}
+          {/* ===================================================
+              ORDERS ERROR
+          =================================================== */}
 
           {ordersError && (
 
             <div className="mt-6 rounded-xl border border-red-500/20 bg-red-500/10 px-5 py-4 text-sm font-bold text-red-400">
-              {ordersError}
+              {
+                ordersError
+              }
             </div>
 
           )}
 
-          {/* ORDERS TABLE */}
+          {/* ===================================================
+              ORDERS TABLE
+          =================================================== */}
 
           <div className="mt-8 overflow-hidden rounded-[28px] border border-white/10 bg-[#0D1826]">
 
@@ -1031,7 +1759,9 @@ export default function AdminPage() {
 
               <button
                 type="button"
-                onClick={loadOrders}
+                onClick={
+                  loadOrders
+                }
                 className="rounded-full border border-white/10 px-4 py-2 text-xs font-bold text-white/50 transition hover:border-[#00D9FF] hover:text-[#00D9FF]"
               >
                 Actualiser
@@ -1089,23 +1819,29 @@ export default function AdminPage() {
 
                   <tbody>
 
-                    {filteredOrders.length > 0 ? (
+                    {filteredOrders.length >
+                    0 ? (
 
                       filteredOrders.map(
                         (order) => (
 
                           <tr
-                            key={order.id}
+                            key={
+                              order.id
+                            }
                             className="border-b border-white/5 transition hover:bg-white/[0.02]"
                           >
 
                             <td className="px-6 py-6">
 
                               <p className="font-black">
-                                #{order.id.slice(
-                                  0,
-                                  8
-                                )}
+                                #
+                                {
+                                  order.id.slice(
+                                    0,
+                                    8
+                                  )
+                                }
                               </p>
 
                               <p className="mt-1 text-xs text-white/25">
@@ -1123,11 +1859,15 @@ export default function AdminPage() {
                             <td className="px-6 py-6">
 
                               <p className="font-bold">
-                                {order.client_name}
+                                {
+                                  order.client_name
+                                }
                               </p>
 
                               <p className="mt-1 text-xs text-white/30">
-                                {order.phone}
+                                {
+                                  order.phone
+                                }
                               </p>
 
                             </td>
@@ -1135,29 +1875,39 @@ export default function AdminPage() {
                             <td className="px-6 py-6">
 
                               <p className="font-bold">
-                                {order.product_name}
+                                {
+                                  order.product_name
+                                }
                               </p>
 
                               <p className="mt-1 text-xs text-white/30">
                                 Quantité :{" "}
-                                {order.quantity}
+                                {
+                                  order.quantity
+                                }
                               </p>
 
                             </td>
 
                             <td className="px-6 py-6 text-white/50">
-                              {order.city}
+                              {
+                                order.city
+                              }
                             </td>
 
                             <td className="max-w-[220px] px-6 py-6 text-sm text-white/40">
-                              {order.address ||
-                                "—"}
+                              {
+                                order.address ||
+                                "—"
+                              }
                             </td>
 
                             <td className="px-6 py-6 font-black text-[#00D9FF]">
-                              {Number(
-                                order.total
-                              )}{" "}
+                              {
+                                Number(
+                                  order.total
+                                )
+                              }{" "}
                               DH
                             </td>
 
@@ -1174,7 +1924,9 @@ export default function AdminPage() {
                                     : "bg-green-500/10 text-green-400"
                                 }`}
                               >
-                                {order.status}
+                                {
+                                  order.status
+                                }
                               </span>
 
                             </td>
@@ -1189,7 +1941,9 @@ export default function AdminPage() {
                       <tr>
 
                         <td
-                          colSpan={7}
+                          colSpan={
+                            7
+                          }
                           className="px-6 py-16 text-center text-white/30"
                         >
                           Aucune commande trouvée.
